@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
 
 type Player = {
@@ -37,6 +37,9 @@ export default function JucatoriPage() {
   const [positionFilter, setPositionFilter] = useState("");
   const [ageFilter, setAgeFilter] = useState("");
   const [clubFilter, setClubFilter] = useState("");
+  const [clubSearch, setClubSearch] = useState("");
+  const [clubDropdownOpen, setClubDropdownOpen] = useState(false);
+  const clubRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState(0);
   const PER_PAGE = 24;
 
@@ -55,6 +58,24 @@ export default function JucatoriPage() {
     const set = new Set(players.map((p) => p.c));
     return [...set].sort();
   }, [players]);
+
+  // Cluburi filtrate după textul de căutare
+  const filteredClubs = useMemo(() => {
+    if (!clubSearch) return clubs;
+    const q = clubSearch.toLowerCase();
+    return clubs.filter((c) => c.toLowerCase().includes(q));
+  }, [clubs, clubSearch]);
+
+  // Închide dropdown la click afară
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (clubRef.current && !clubRef.current.contains(e.target as Node)) {
+        setClubDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   // Calculează vârsta
   const getAge = (birthDate: string) => {
@@ -127,14 +148,50 @@ export default function JucatoriPage() {
               <option value="u17">U16–U17</option>
               <option value="u19">U18–U19</option>
             </select>
-            <select
-              value={clubFilter}
-              onChange={(e) => { setClubFilter(e.target.value); setPage(0); }}
-              className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
-            >
-              <option value="">Toate cluburile</option>
-              {clubs.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
+            <div ref={clubRef} className="relative">
+              <input
+                type="text"
+                placeholder={clubFilter || "Toate cluburile"}
+                value={clubDropdownOpen ? clubSearch : (clubFilter || "")}
+                onChange={(e) => { setClubSearch(e.target.value); setClubDropdownOpen(true); }}
+                onFocus={() => { setClubDropdownOpen(true); setClubSearch(""); }}
+                className="w-full px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
+              />
+              {clubFilter && !clubDropdownOpen && (
+                <button
+                  type="button"
+                  onClick={() => { setClubFilter(""); setPage(0); }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground text-lg leading-none"
+                  aria-label="Curăță filtrul"
+                >×</button>
+              )}
+              {clubDropdownOpen && (
+                <div className="absolute z-50 mt-1 w-full max-h-60 overflow-y-auto bg-navy border border-white/10 rounded-lg shadow-xl">
+                  <button
+                    type="button"
+                    onClick={() => { setClubFilter(""); setClubDropdownOpen(false); setClubSearch(""); setPage(0); }}
+                    className="w-full text-left px-4 py-2 text-sm text-muted hover:bg-white/5"
+                  >Toate cluburile</button>
+                  {filteredClubs.length === 0 ? (
+                    <div className="px-4 py-2 text-sm text-muted">Niciun club găsit</div>
+                  ) : (
+                    filteredClubs.slice(0, 100).map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => { setClubFilter(c); setClubDropdownOpen(false); setClubSearch(""); setPage(0); }}
+                        className={`w-full text-left px-4 py-2 text-sm hover:bg-white/5 ${clubFilter === c ? "text-violet" : "text-foreground"}`}
+                      >{c}</button>
+                    ))
+                  )}
+                  {filteredClubs.length > 100 && (
+                    <div className="px-4 py-2 text-xs text-muted border-t border-white/5">
+                      {filteredClubs.length} cluburi — refinează căutarea
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
