@@ -304,47 +304,53 @@ export default function JucatorPage() {
                   result === "L" ? "text-red" :
                   result === "D" ? "text-amber" : "text-muted";
                 return (
-                  <div key={i} className="card-navy p-4 flex items-center gap-4">
-                    {/* Result badge */}
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
-                      result === "W" ? "bg-green/10 text-green" :
-                      result === "L" ? "bg-red/10 text-red" :
-                      result === "D" ? "bg-amber/10 text-amber" : "bg-navy-light text-muted"
-                    }`}>
-                      {result || "—"}
-                    </div>
-
-                    {/* Date */}
-                    <div className="text-xs text-muted w-16 flex-shrink-0">
-                      {new Date(date).toLocaleDateString("ro-RO", { day: "2-digit", month: "short" })}
-                    </div>
-
-                    {/* Role */}
-                    <div className="w-20 flex-shrink-0">
-                      <span className={`text-xs font-semibold ${
-                        role === "titular" ? "text-green" :
-                        role === "rezervă" ? "text-amber" : "text-muted"
+                  <div key={i} className="card-navy p-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+                    {/* Top row (mobile) / left group (desktop): badge + date + role */}
+                    <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
+                      {/* Result badge */}
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+                        result === "W" ? "bg-green/10 text-green" :
+                        result === "L" ? "bg-red/10 text-red" :
+                        result === "D" ? "bg-amber/10 text-amber" : "bg-navy-light text-muted"
                       }`}>
-                        {role === "titular" ? "Titular" : role === "rezervă" ? "Rezervă" : "Rez. extra"}
-                      </span>
-                      {captain === 1 && (
-                        <span className="block text-xs text-violet">C</span>
-                      )}
+                        {result || "—"}
+                      </div>
+
+                      {/* Date */}
+                      <div className="text-xs text-muted w-16 flex-shrink-0">
+                        {new Date(date).toLocaleDateString("ro-RO", { day: "2-digit", month: "short" })}
+                      </div>
+
+                      {/* Role */}
+                      <div className="w-20 flex-shrink-0">
+                        <span className={`text-xs font-semibold ${
+                          role === "titular" ? "text-green" :
+                          role === "rezervă" ? "text-amber" : "text-muted"
+                        }`}>
+                          {role === "titular" ? "Titular" : role === "rezervă" ? "Rezervă" : "Rez. extra"}
+                        </span>
+                        {captain === 1 && (
+                          <span className="block text-xs text-violet">C</span>
+                        )}
+                      </div>
+
+                      {/* Position */}
+                      <div className="w-32 flex-shrink-0 text-xs text-foreground truncate hidden md:block">
+                        {pos}
+                      </div>
                     </div>
 
-                    {/* Position */}
-                    <div className="w-32 flex-shrink-0 text-xs text-foreground truncate hidden md:block">
-                      {pos}
-                    </div>
+                    {/* Bottom row (mobile) / right group (desktop): opponent + score */}
+                    <div className="flex items-center justify-between gap-3 md:flex-1 md:min-w-0">
+                      {/* Opponent */}
+                      <div className="text-sm text-foreground md:flex-1 md:min-w-0 md:truncate break-words">
+                        vs {opp || "—"}
+                      </div>
 
-                    {/* Opponent */}
-                    <div className="flex-1 text-sm text-foreground truncate">
-                      vs {opp || "—"}
-                    </div>
-
-                    {/* Score */}
-                    <div className={`text-sm font-bold ${resultColor} flex-shrink-0`}>
-                      {score || "—"}
+                      {/* Score */}
+                      <div className={`text-sm font-bold ${resultColor} flex-shrink-0`}>
+                        {score || "—"}
+                      </div>
                     </div>
                   </div>
                 );
