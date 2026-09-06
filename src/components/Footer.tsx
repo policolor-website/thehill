@@ -7,11 +7,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Logo + description */}
           <div>
-            <div className="flex items-center gap-1 mb-4">
-              <span className="text-xl font-display font-bold text-gradient">the</span>
-              <span className="text-xl font-display font-bold text-foreground">HILL</span>
-              <span className="text-xl font-display font-bold text-foreground">.ro</span>
-            </div>
+            <Link href="/" className="no-underline mb-4 block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="theHILL.ro"
+                className="h-16 w-auto"
+              />
+            </Link>
             <p className="text-muted text-sm leading-relaxed mb-4">
               Platformă scouting fotbal pentru juniori din România. Date din FRF
               și HaiLaFotbal. Caută jucători după vârstă, poziție, județ și club.
