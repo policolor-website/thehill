@@ -96,10 +96,12 @@ ms.forEach(m => {
   p.mt.push([m.date, m.competitionName, m.role, cleanPos || '', m.isCaptain ? 1 : 0, opp, score, result]);
 });
 
-// Convert Sets to arrays — cu ultimele 15 meciuri incluse
+// Convert Sets to arrays — cu TOATE meciurile din 2026 incluse
 const playerStats = Object.values(byPlayer).map(p => {
-  // Sortează meciurile descrescător după dată și păstrează ultimele 15
-  const sortedMt = p.mt.sort((a, b) => b[0].localeCompare(a[0])).slice(0, 5);
+  // Sortează descrescător și păstrează doar meciurile din 2026
+  const sortedMt = p.mt
+    .filter(m => m[0].startsWith('2026'))
+    .sort((a, b) => b[0].localeCompare(a[0]));
   return {
     f: p.f,
     l: p.l,

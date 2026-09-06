@@ -294,7 +294,7 @@ export default function JucatorPage() {
         {stat && stat.mt && stat.mt.length > 0 && (
           <div className="mb-8">
             <h2 className="font-display text-2xl font-bold text-foreground mb-4">
-              Ultimele meciuri ({stat.tm} total)
+              Meciuri 2026 ({stat.mt.length})
             </h2>
             <div className="space-y-2">
               {stat.mt.map((m, i) => {
