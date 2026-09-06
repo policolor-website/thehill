@@ -8,5 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/cluburi", lastModified: new Date(), priority: 0.8 },
     { url: "/meciuri", lastModified: new Date(), priority: 0.7 },
     { url: "/despre", lastModified: new Date(), priority: 0.5 },
+    { url: "/contact", lastModified: new Date(), priority: 0.5 },
   ];
 }

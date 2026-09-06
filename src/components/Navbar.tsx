@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/cluburi", label: "Cluburi" },
   { href: "/meciuri", label: "Meciuri" },
   { href: "/despre", label: "Despre" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
