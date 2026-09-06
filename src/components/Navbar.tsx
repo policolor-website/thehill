@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/", label: "Acasă" },
   { href: "/jucatori", label: "Jucători" },
-  { href: "/echipe-nationale", label: "Naționale" },
+  { href: "/echipe-nationale", label: "Loturi Naționale" },
   { href: "/cluburi", label: "Cluburi" },
   { href: "/meciuri", label: "Meciuri" },
   { href: "/despre", label: "Despre" },
