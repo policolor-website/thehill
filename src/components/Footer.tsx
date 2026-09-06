@@ -61,13 +61,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-muted text-xs">
             © 2026 theHILL.ro. Date pentru scopuri de scouting.
           </p>
           <p className="text-muted text-xs">
             {`24.983 profiluri · 209 cluburi · 1.693 meciuri`}
           </p>
+        </div>
+
+        {/* Logo-uri federații */}
+        <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-center gap-8 opacity-60">
+          <a href="https://www.frf.ro" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/frf.png" alt="FRF — Federația Română de Fotbal" className="h-10 w-auto" />
+          </a>
+          <a href="https://www.uefa.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/uefa.png" alt="UEFA" className="h-10 w-auto" />
+          </a>
+          <a href="https://www.fifa.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/fifa.png" alt="FIFA" className="h-10 w-auto" />
+          </a>
         </div>
       </div>
     </footer>

@@ -13,6 +13,19 @@ const stats = [
 export default function Hero() {
   return (
     <section className="relative pt-32 pb-16 overflow-hidden">
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay gradient pentru contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/60 to-navy" />
+
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Title + text */}
@@ -44,22 +57,16 @@ export default function Hero() {
               <span className="block text-5xl md:text-7xl text-gradient">
                 juniori România
               </span>
-              <span className="block text-2xl md:text-3xl text-muted mt-3 font-medium">
-                theHILL.ro
-              </span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base md:text-lg text-muted max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed font-light"
+              className="text-base md:text-lg text-white max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed font-light"
             >
               Caută jucători juniori din toate cluburile și academiile de fotbal
-              din România. Filtrează după <strong className="text-foreground font-medium">vârstă</strong>,{" "}
-              <strong className="text-foreground font-medium">poziție</strong>,{" "}
-              <strong className="text-foreground font-medium">județ</strong> și{" "}
-              <strong className="text-foreground font-medium">club</strong>. Vezi
+              din România. Filtrează după vârstă, poziție, județ și club. Vezi
               meciurile jucate, titular sau rezervă, și poziția reală pe teren.
             </motion.p>
 
