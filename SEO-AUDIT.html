@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Audit Complet — Mica and Kids</title>
+  <style>
+    :root {
+      --cream: #F5FBF9;
+      --green-light: #8EAF2C;
+      --green-dark: #448227;
+      --brown: #7C411A;
+      --orange-light: #F49E31;
+      --orange-dark: #F05F22;
+      --yellow: #F0AC22;
+      --blue: #2B91B6;
+      --foreground: #3a3a3a;
+      --muted: #8a8a8a;
+      --red: #dc2626;
+      --green-ok: #16a34a;
+      --bg: #f8faf9;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--foreground);
+      line-height: 1.7;
+      padding: 0;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+    .header p { opacity: 0.9; font-size: 1.1rem; }
+    .header .meta { margin-top: 16px; font-size: 0.85rem; opacity: 0.8; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Summary cards */
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .stat-card { background: var(--card); border-radius: 16px; padding: 24px; text-align: center; border: 1px solid var(--border); }
+    .stat-card .num { font-size: 2.5rem; font-weight: 800; }
+    .stat-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 4px; }
+    .stat-critical .num { color: var(--red); }
+    .stat-high .num { color: var(--orange-dark); }
+    .stat-medium .num { color: var(--yellow); }
+    .stat-ok .num { color: var(--green-ok); }
+
+    /* Section */
+    .section { background: var(--card); border-radius: 16px; padding: 32px; margin-bottom: 24px; border: 1px solid var(--border); }
+    .section h2 { font-size: 1.5rem; color: var(--green-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section h2 .icon { font-size: 1.8rem; }
+    .section h3 { font-size: 1.15rem; color: var(--foreground); margin: 24px 0 12px; }
+    .section p { margin-bottom: 12px; }
+    .section ul, .section ol { margin: 12px 0 12px 24px; }
+    .section li { margin-bottom: 8px; }
+
+    /* Status badges */
+    .badge { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badge-critical { background: #fef2f2; color: var(--red); }
+    .badge-high { background: #fff7ed; color: var(--orange-dark); }
+    .badge-medium { background: #fefce8; color: #a16207; }
+    .badge-ok { background: #f0fdf4; color: var(--green-ok); }
+    .badge-missing { background: #f1f5f9; color: var(--muted); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+    th { background: var(--cream); padding: 12px 16px; text-align: left; font-weight: 700; color: var(--green-dark); border-bottom: 2px solid var(--green-light); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    tr:hover td { background: var(--cream); }
+
+    /* Checklist */
+    .checklist { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+    .checklist li { padding: 10px 0 10px 32px; position: relative; border-bottom: 1px solid var(--border); }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: "☐"; position: absolute; left: 0; top: 8px; font-size: 1.3rem; color: var(--green-light); }
+    .checklist li.done::before { content: "☑"; color: var(--green-ok); }
+    .checklist .item-title { font-weight: 700; }
+    .checklist .item-desc { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+    .checklist .item-priority { float: right; }
+
+    /* Code block */
+    .code { background: #1e293b; color: #e2e8f0; border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; line-height: 1.6; }
+    .code .comment { color: #64748b; }
+    .code .keyword { color: #818cf8; }
+    .code .string { color: #34d399; }
+    .code .tag { color: #fb923c; }
+
+    /* Priority box */
+    .priority-box { border-left: 4px solid; padding: 16px 20px; border-radius: 0 12px 12px 0; margin: 16px 0; }
+    .priority-critical { border-color: var(--red); background: #fef2f2; }
+    .priority-high { border-color: var(--orange-dark); background: #fff7ed; }
+    .priority-medium { border-color: var(--yellow); background: #fefce8; }
+    .priority-box strong { display: block; margin-bottom: 4px; }
+
+    /* Keywords */
+    .keyword-group { margin: 16px 0; }
+    .keyword-group h4 { font-size: 0.9rem; color: var(--green-dark); margin-bottom: 8px; }
+    .kw-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .kw-tag { background: var(--cream); border: 1px solid var(--green-light); color: var(--green-dark); padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .kw-tag.primary { background: var(--green-light); color: white; }
+    .kw-tag.brand { background: var(--orange-light); color: white; border-color: var(--orange-dark); }
+
+    /* Competitor */
+    .competitor { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--cream); border-radius: 12px; margin: 8px 0; }
+    .competitor .name { font-weight: 700; color: var(--green-dark); }
+    .competitor .addr { font-size: 0.85rem; color: var(--muted); }
+    .competitor .threat { margin-left: auto; }
+
+    /* Print */
+    @media print {
+      @page {
+        size: A4;
+        margin: 15mm 12mm;
+      }
+      body {
+        background: white !important;
+        font-size: 11px;
+        line-height: 1.5;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .header {
+        padding: 20px;
+        margin-bottom: 16px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .header h1 { font-size: 1.6rem; }
+      .header p { font-size: 0.95rem; }
+      .header .meta { font-size: 0.75rem; }
+      .container { padding: 0; max-width: 100%; }
+      .summary {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .stat-card { padding: 14px; break-inside: avoid; }
+      .stat-card .num { font-size: 1.8rem; }
+      .section {
+        padding: 16px;
+        margin-bottom: 14px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+      .section h2 { font-size: 1.2rem; margin-bottom: 12px; break-after: avoid; }
+      .section h3 { font-size: 1rem; margin: 14px 0 8px; break-after: avoid; }
+      .section p { margin-bottom: 8px; }
+      .section ul, .section ol { margin: 8px 0 8px 20px; }
+      .section li { margin-bottom: 5px; }
+      table { font-size: 9.5px; }
+      th { padding: 8px 10px; }
+      td { padding: 8px 10px; }
+      .badge { font-size: 0.7rem; padding: 2px 8px; }
+      .code {
+        font-size: 8.5px;
+        padding: 14px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .checklist li { padding: 6px 0 6px 28px; }
+      .checklist li::before { font-size: 1.1rem; top: 5px; }
+      .priority-box { padding: 12px 16px; margin: 10px 0; break-inside: avoid; }
+      .keyword-group { break-inside: avoid; }
+      .kw-tag { font-size: 0.72rem; padding: 3px 10px; }
+      .competitor { break-inside: avoid; padding: 10px 14px; }
+      a { color: var(--blue); text-decoration: none; }
+    }
+    @media (max-width: 640px) {
+      .header h1 { font-size: 1.5rem; }
+      .section { padding: 20px; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SEO Audit Complet — Mica and Kids</h1>
+</div>
+
+<div class="container">
+
+  <!-- 1. STAREA ACTUALA -->
+  <div class="section">
+    <h2><span class="icon">📊</span> 1. Starea Actuală</h2>
+
+    <h3>✅ Ce există deja</h3>
+    <ul>
+      <li><strong>Metadata de bază</strong> — <code>title</code> + <code>description</code> pe fiecare pagină (corect, în română)</li>
+      <li><strong><code>&lt;html lang="ro"&gt;</code></strong> în <code>layout.tsx</code></li>
+      <li><strong>Favicon</strong> — prezent în <code>src/app/</code></li>
+      <li><strong>Fonturi optimizate</strong> — DynaPuff + Nunito via <code>next/font/google</code></li>
+      <li><strong>SSR/SSG</strong> — paginile secundare sunt Server Components (HTML complet pentru crawlers)</li>
+      <li><strong>URL-uri curate</strong> — <code>/servicii</code>, <code>/program-tarife</code>, <code>/despre-noi</code>, etc.</li>
+    </ul>
+
+    <h3>❌ Ce lipsește complet</h3>
+    <table>
+      <thead>
+        <tr><th>Element</th><th>Status</th><th>Impact</th><th>Descriere</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>sitemap.xml</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Google nu descoperă paginile automat (de activat la lansare)</td></tr>
+        <tr><td><strong>Schema.org / JSON-LD</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Fără rich snippets, fără rezultate locale pe Google</td></tr>
+        <tr><td><strong>Open Graph (og:)</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Link-urile pe Facebook/WhatsApp nu au preview</td></tr>
+        <tr><td><strong>Twitter Cards</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără preview pe Twitter/X</td></tr>
+        <tr><td><strong>Canonical URLs</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Risc de conținut duplicat</td></tr>
+        <tr><td><strong>metadataBase</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>URL-urile relative pentru OG/canonical nu se rezolvă</td></tr>
+        <tr><td><strong>Web Manifest</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără PWA, fără icon pe mobile home screen</td></tr>
+        <tr><td><strong>Google Tag Manager</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Fără container unic pentru toate tag-urile</td></tr>
+        <tr><td><strong>Google Analytics (GA4)</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Fără date despre vizitatori</td></tr>
+        <tr><td><strong>Google Search Console</strong></td><td><span class="badge badge-critical">Neconfigurat</span></td><td>Critical</td><td>Nu știm dacă Google a încercat să indexeze</td></tr>
+        <tr><td><strong>Google Business Profile</strong></td><td><span class="badge badge-critical">Necunoscut</span></td><td>Critical</td><td>Fără pe Google Maps, fără recenzii Google</td></tr>
+        <tr><td><strong>Facebook Pixel</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără tracking conversii pentru reclame Facebook/Instagram</td></tr>
+        <tr><td><strong>Bing Webmaster Tools</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Scăzut</td><td>Indexare pe Bing (minor pentru RO)</td></tr>
+        <tr><td><strong>Cookie Banner / GDPR</strong></td><td><span class="badge badge-high">Lipsește</span></td><td>Ridicat</td><td>Obligatoriu pentru GA4/Pixel conform GDPR/UE</td></tr>
+        <tr><td><strong>Alt text optimizat</strong></td><td><span class="badge badge-medium">Parțial</span></td><td>Mediu</td><td>Imaginile au alt text generic, fără cuvinte cheie</td></tr>
+        <tr><td><strong>Internal linking</strong></td><td><span class="badge badge-medium">Minimal</span></td><td>Mediu</td><td>Doar navbar + footer, fără link-uri contextuale</td></tr>
+        <tr><td><strong>Breadcrumbs</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără navigare structurată SEO</td></tr>
+        <tr><td><strong>404 Page</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără <code>not-found.tsx</code> custom</td></tr>
+        <tr><td><strong>loading.tsx</strong></td><td><span class="badge badge-medium">Lipsește</span></td><td>Mediu</td><td>Fără loading states pentru pagini</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- 2. GOOGLE TAG MANAGER -->
+  <div class="section">
+    <h2><span class="icon">🏷️</span> 2. Google Tag Manager (GTM)</h2>
+
+    <p><strong>Ce este:</strong> GTM = container unic pentru toate tag-urile de tracking (GA4, Facebook Pixel, Google Ads, etc.). În loc să pui cod pe site pentru fiecare tool, pui un singur cod GTM și gestionezi totul din interfață.</p>
+
+    <h3>Pași de implementare</h3>
+    <ul class="checklist">
+      <li><span class="item-priority"><span class="badge badge-high">Ridicat</span></span><span class="item-title">Creare cont GTM</span><span class="item-desc">Acces <code>tagmanager.google.com</code> → creare container Web pentru <code>gradinitamicaandkids.ro</code></span></li>
+      <li><span class="item-title">Instalare cod GTM în site</span><span class="item-desc">Script în <code>&lt;head&gt;</code> via <code>next/script</code> cu <code>strategy="afterInteractive"</code> în <code>layout.tsx</code>. <code>&lt;noscript&gt;</code> în <code>&lt;body&gt;</code></span></li>
+      <li><span class="item-title">Configurare GA4 Configuration Tag</span><span class="item-desc">Trimite pageviews automat către GA4</span></li>
+      <li><span class="item-title">Configurare Facebook Pixel (opțional)</span><span class="item-desc">Dacă se face reclamă pe Facebook/Instagram</span></li>
+      <li><span class="item-title">Configurare Google Ads Conversion</span><span class="item-desc">Dacă se face reclamă Google Ads</span></li>
+      <li><span class="item-title">Form submission tracking</span><span class="item-desc">Trigger pe formularul de contact <code>/contact</code></span></li>
+      <li><span class="item-title">Click tracking pentru CTA</span><span class="item-desc">Butoanele "Înscrie-te", "Programează o vizită", "Rezervă"</span></li>
+      <li><span class="item-title">Phone click tracking</span><span class="item-desc">Pe <code>tel:</code> links — 0740 467 056 / 0762 119 691</span></li>
+      <li><span class="item-title">Email click tracking</span><span class="item-desc">Pe <code>mailto:</code> links</span></li>
+      <li><span class="item-title">Scroll depth tracking</span><span class="item-desc">25%, 50%, 75%, 100%</span></li>
+    </ul>
+  </div>
+
+  <!-- 3. GOOGLE ANALYTICS -->
+  <div class="section">
+    <h2><span class="icon">📈</span> 3. Google Analytics 4 (GA4)</h2>
+
+    <h3>Pași de implementare</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Creare proprietate GA4</span><span class="item-desc"><code>analytics.google.com</code> → creare proprietate nouă</span></li>
+      <li><span class="item-title">Creare Data Stream Web</span><span class="item-desc">Pentru <code>gradinitamicaandkids.ro</code> → obține Measurement ID <code>G-XXXXXXXXXX</code></span></li>
+      <li><span class="item-title">Instalare prin GTM</span><span class="item-desc">Recomandat: GA4 Configuration Tag în GTM. Alternativ: <code>next/script</code> direct</span></li>
+      <li><span class="item-title">Configurare events custom</span><span class="item-desc"><code>page_view</code> (auto), <code>form_submit</code>, <code>phone_click</code>, <code>email_click</code>, <code>cta_click</code>, <code>scroll_depth</code></span></li>
+      <li><span class="item-title">Configurare conversions</span><span class="item-desc">Form submit = conversion principal. Phone click = conversion secundar</span></li>
+      <li><span class="item-title">Link GA4 ↔ Google Search Console</span><span class="item-desc">Pentru date Search Console în GA4</span></li>
+      <li><span class="item-title">Link GA4 ↔ Google Ads</span><span class="item-desc">Dacă se face reclamă plătită</span></li>
+      <li><span class="item-title">Configurare audiences</span><span class="item-desc">Utilizatori din București/Ilfov, părinți 25-45 ani</span></li>
+    </ul>
+
+    <div class="priority-box priority-medium">
+      <strong>💡 Alternativă privacy-friendly</strong>
+      <a href="https://plausible.io">Plausible</a>, <a href="https://umami.is">Umami</a> sau <a href="https://usefathom.com">Fathom</a> — alternative fără cookie banner, GDPR-friendly, mai rapide. Nu necesită consent banner în UE.
+    </div>
+  </div>
+
+  <!-- 4. GOOGLE SEARCH CONSOLE -->
+  <div class="section">
+    <h2><span class="icon">🔍</span> 4. Google Search Console (GSC)</h2>
+
+    <h3>Pași de implementare</h3>
+    <ul class="checklist">
+      <li><span class="item-priority"><span class="badge badge-critical">Critice</span></span><span class="item-title">Adăugare proprietate în GSC</span><span class="item-desc"><code>search.google.com/search-console</code> → Domain property (recomandat, verificare DNS TXT) SAU URL prefix (verificare HTML file / meta tag)</span></li>
+      <li><span class="item-title">Submit sitemap.xml</span><span class="item-desc">După creare <code>app/sitemap.ts</code> → submit <code>gradinitamicaandkids.ro/sitemap.xml</code></span></li>
+      <li><span class="item-title">Request indexing pentru toate paginile</span><span class="item-desc">7 pagini: /, /despre-noi, /servicii, /program-tarife, /petreceri, /galerie, /contact</span></li>
+      <li><span class="item-title">URL Inspection pentru fiecare pagină</span><span class="item-desc">Verificare: indexare, canonical, mobile usability, rich results</span></li>
+      <li><span class="item-title">Monitorizare Core Web Vitals</span><span class="item-desc">LCP &lt; 2.5s, INP &lt; 200ms, CLS &lt; 0.1</span></li>
+      <li><span class="item-title">Monitorizare Mobile Usability</span><span class="item-desc">Verificare render pe mobile</span></li>
+      <li><span class="item-title">Monitorizare Search queries</span><span class="item-desc">Impressions, clicks, CTR, poziție medie</span></li>
+      <li><span class="item-title">Monitorizare Internal/External links</span><span class="item-desc">Cine linkează, către ce pagini</span></li>
+    </ul>
+  </div>
+
+  <!-- 5. GOOGLE BUSINESS PROFILE -->
+  <div class="section">
+    <h2><span class="icon">📍</span> 5. Google Business Profile (fost GMB)</h2>
+
+    <h3>Pași de implementare</h3>
+    <ul class="checklist">
+      <li><span class="item-priority"><span class="badge badge-critical">Critice</span></span><span class="item-title">Creare cont Google Business Profile</span><span class="item-desc"><code>business.google.com</code> cu contul de email al grădiniței</span></li>
+      <li><span class="item-title">Verificare adresă</span><span class="item-desc">Strada Sfântul Gheorghe 5B, Popești Leordeni, Ilfov — verificare prin cod poștal</span></li>
+      <li><span class="item-title">Completare profil complet</span><span class="item-desc">
+        <strong>Nume:</strong> "Mica and Kids — Grădiniță, Creșă &amp; Afterschool"<br/>
+        <strong>Categorie principală:</strong> Child care agency / Preschool<br/>
+        <strong>Categorii secundare:</strong> After school program, Children's party service<br/>
+        <strong>Program:</strong> Luni-Vineri 07:00-19:00<br/>
+        <strong>Telefon:</strong> 0740 467 056 / 0762 119 691<br/>
+        <strong>Website:</strong> gradinitamicaandkids.ro<br/>
+        <strong>Servicii:</strong> Creșă, Grădiniță, Afterschool, Tabere, Petreceri
+      </span></li>
+      <li><span class="item-title">Adăugare fotografii</span><span class="item-desc">Interior, exterior, echipă, activități, mascota — minim 10 foto</span></li>
+      <li><span class="item-title">Colectare recenzii</span><span class="item-desc">Cere de la părinții existenți să lase recenzii Google (minim 5 pentru start)</span></li>
+      <li><span class="item-title">Post-uri regulate</span><span class="item-desc">Săptămânal: activități, evenimente, news, promoții</span></li>
+      <li><span class="item-title">Q&A</span><span class="item-desc">Răspuns la întrebări frecvente pe profil</span></li>
+      <li><span class="item-title">Adăugare pe Google Maps &amp; Waze</span><span class="item-desc">Verificare că adresa apare corect pe hărți</span></li>
+    </ul>
+
+    <h3>🏟️ Concurență locală directă</h3>
+    <div class="competitor">
+      <span>🏫</span>
+      <div><div class="name">IQ-EST</div><div class="addr">Strada Sfântul Gheorghe 5/5A — ACEEAȘI stradă!</div></div>
+      <span class="threat"><span class="badge badge-high">Threat Ridicat</span></span>
+    </div>
+    <div class="competitor">
+      <span>🏫</span>
+      <div><div class="name">Maria Natalia</div><div class="addr">3 locații în Popești Leordeni, site bine optimizat</div></div>
+      <span class="threat"><span class="badge badge-high">Threat Ridicat</span></span>
+    </div>
+    <div class="competitor">
+      <span>🏫</span>
+      <div><div class="name">Inima Lui Isus</div><div class="addr">Str. Leordeni 24 — pe ARACIP</div></div>
+      <span class="threat"><span class="badge badge-medium">Threat Mediu</span></span>
+    </div>
+    <div class="competitor">
+      <span>🏫</span>
+      <div><div class="name">5 Grădinițe de stat</div><div class="addr">Listate pe site-ul primăriei Popești Leordeni</div></div>
+      <span class="threat"><span class="badge badge-medium">Threat Mediu</span></span>
+    </div>
+  </div>
+
+  <!-- 6. SCHEMA.ORG -->
+  <div class="section">
+    <h2><span class="icon">🏗️</span> 6. Schema.org / Structured Data (JSON-LD)</h2>
+
+    <p><strong>De ce:</strong> Datele structurate permit Google să afișeze rich snippets (stele, prețuri, program, hartă) direct în rezultatele de căutare. Cresc CTR-ul cu 20-30%.</p>
+
+    <h3>1. <code>Preschool</code> + <code>LocalBusiness</code> — pe homepage</h3>
+    <div class="code">{
+  <span class="string">"@context"</span>: <span class="string">"https://schema.org"</span>,
+  <span class="string">"@type"</span>: <span class="string">"Preschool"</span>,
+  <span class="string">"name"</span>: <span class="string">"Mica and Kids — Grădiniță, Creșă &amp; Afterschool"</span>,
+  <span class="string">"image"</span>: <span class="string">"https://gradinitamicaandkids.ro/images/logo/logo-mica.png"</span>,
+  <span class="string">"url"</span>: <span class="string">"https://gradinitamicaandkids.ro"</span>,
+  <span class="string">"telephone"</span>: <span class="string">"+40740467056"</span>,
+  <span class="string">"email"</span>: <span class="string">"office@gradinitamicaandkids.ro"</span>,
+  <span class="string">"address"</span>: {
+    <span class="string">"@type"</span>: <span class="string">"PostalAddress"</span>,
+    <span class="string">"streetAddress"</span>: <span class="string">"Strada Sfântul Gheorghe 5B"</span>,
+    <span class="string">"addressLocality"</span>: <span class="string">"Popești Leordeni"</span>,
+    <span class="string">"addressRegion"</span>: <span class="string">"Ilfov"</span>,
+    <span class="string">"postalCode"</span>: <span class="string">"077160"</span>,
+    <span class="string">"addressCountry"</span>: <span class="string">"RO"</span>
+  },
+  <span class="string">"geo"</span>: {
+    <span class="string">"@type"</span>: <span class="string">"GeoCoordinates"</span>,
+    <span class="string">"latitude"</span>: <span class="string">"44.3XXX"</span>,
+    <span class="string">"longitude"</span>: <span class="string">"26.1XXX"</span>
+  },
+  <span class="string">"openingHoursSpecification"</span>: [{
+    <span class="string">"@type"</span>: <span class="string">"OpeningHoursSpecification"</span>,
+    <span class="string">"dayOfWeek"</span>: [<span class="string">"Monday"</span>,<span class="string">"Tuesday"</span>,<span class="string">"Wednesday"</span>,<span class="string">"Thursday"</span>,<span class="string">"Friday"</span>],
+    <span class="string">"opens"</span>: <span class="string">"07:00"</span>,
+    <span class="string">"closes"</span>: <span class="string">"19:00"</span>
+  }],
+  <span class="string">"priceRange"</span>: <span class="string">"2000-2500 RON"</span>,
+  <span class="string">"aggregateRating"</span>: {
+    <span class="string">"@type"</span>: <span class="string">"AggregateRating"</span>,
+    <span class="string">"ratingValue"</span>: <span class="string">"5.0"</span>,
+    <span class="string">"reviewCount"</span>: <span class="string">"3"</span>
+  }
+}</div>
+
+    <h3>2. <code>Service</code> — pe <code>/servicii</code></h3>
+    <p>4 servicii: Creșă (1.5-3 ani), Grădiniță (3-6 ani), Afterschool (6-12 ani), Tabere &amp; Excursii. Fiecare cu <code>name</code>, <code>description</code>, <code>provider</code>, <code>areaServed</code>.</p>
+
+    <h3>3. <code>FAQPage</code> — pe pagina relevantă</h3>
+    <ul>
+      <li>"Care sunt tarifele?" → răspuns cu gamele de preț</li>
+      <li>"Ce program aveți?" → 07:00-19:00, Luni-Vineri</li>
+      <li>"De la ce vârstă acceptați copii?" → 1.5 ani</li>
+      <li>"Aveți activități în aer liber?" → da, outdoor-first</li>
+      <li>"Organizați petreceri?" → da, închiriere weekend</li>
+    </ul>
+
+    <h3>4. <code>BreadcrumbList</code> — pe toate paginile</h3>
+    <p>Home &gt; Servicii, Home &gt; Program &amp; Tarife, Home &gt; Despre noi, etc.</p>
+
+    <h3>5. Alte scheme recomandate</h3>
+    <ul>
+      <li><code>WebSite</code> — pe homepage (cu SearchAction dacă se adaugă search)</li>
+      <li><code>Organization</code> — pe <code>/despre-noi</code> (fondatoare, logo, adresă)</li>
+      <li><code>Event</code> — pe <code>/petreceri</code> (petreceri de copii în weekend)</li>
+      <li><code>Review</code> / <code>Testimonial</code> — pe homepage (cele 3 testimoniale)</li>
+      <li><code>ImageObject</code> — pe <code>/galerie</code> (pentru imagini indexabile)</li>
+    </ul>
+  </div>
+
+  <!-- 7. CUVINTE CHEIE -->
+  <div class="section">
+    <h2><span class="icon">🔑</span> 7. Cuvinte Cheie — Strategie</h2>
+
+    <div class="keyword-group">
+      <h4>🎯 Cuvinte cheie principale (high volume)</h4>
+      <div class="kw-tags">
+        <span class="kw-tag primary">grădiniță privată Ilfov</span>
+        <span class="kw-tag primary">grădiniță Popești Leordeni</span>
+        <span class="kw-tag primary">creșă Popești Leordeni</span>
+        <span class="kw-tag primary">creșă Ilfov</span>
+        <span class="kw-tag primary">grădiniță cu program prelungit Ilfov</span>
+        <span class="kw-tag primary">afterschool Popești Leordeni</span>
+        <span class="kw-tag primary">afterschool Ilfov</span>
+      </div>
+    </div>
+
+    <div class="keyword-group">
+      <h4>🔍 Cuvinte cheie secundare (long tail)</h4>
+      <div class="kw-tags">
+        <span class="kw-tag">grădiniță învățare prin joacă aer liber</span>
+        <span class="kw-tag">grădiniță cu activități outdoor Ilfov</span>
+        <span class="kw-tag">grădiniță cu animale și natură</span>
+        <span class="kw-tag">creșă 1.5 ani Ilfov</span>
+        <span class="kw-tag">grădiniță cu limbi străine Popești Leordeni</span>
+        <span class="kw-tag">petreceri copii weekend Popești Leordeni</span>
+        <span class="kw-tag">închiriere sală petreceri copii Ilfov</span>
+        <span class="kw-tag">tabere copii Ilfov</span>
+        <span class="kw-tag">grădiniță cu program flexibil</span>
+        <span class="kw-tag">grădiniță outdoor Ilfov</span>
+        <span class="kw-tag">grădiniță cu engleză Popești Leordeni</span>
+        <span class="kw-tag">creșă cu program lung Ilfov</span>
+      </div>
+    </div>
+
+    <div class="keyword-group">
+      <h4>🏷️ Cuvinte cheie de brand</h4>
+      <div class="kw-tags">
+        <span class="kw-tag brand">Mica and Kids</span>
+        <span class="kw-tag brand">gradinitamicaandkids</span>
+        <span class="kw-tag brand">grădinița Mica and Kids</span>
+        <span class="kw-tag brand">creșa Mica and Kids</span>
+        <span class="kw-tag brand">albinuța Mica</span>
+      </div>
+    </div>
+
+    <h3>Unde se plasează cuvintele cheie</h3>
+    <ul>
+      <li><strong>Title tags</strong> — fiecare pagină să aibă cuvânt cheie principal (ex: "Grădiniță Privată Popești Leordeni — Mica and Kids")</li>
+      <li><strong>Meta descriptions</strong> — cu CTA și cuvânt cheie (max 155 chars)</li>
+      <li><strong>H1, H2, H3</strong> — structură ierarhică cu cuvinte cheie naturale</li>
+      <li><strong>URL-uri</strong> — deja curate ✓</li>
+      <li><strong>Alt text imagini</strong> — cu cuvinte cheie descriptive (ex: "Copii la grădinița Mica and Kids în aer liber")</li>
+      <li><strong>Conținut</strong> — text pe pagini cu cuvinte cheie naturale, fără keyword stuffing</li>
+      <li><strong>Internal links</strong> — anchor text cu cuvinte cheie</li>
+      <li><strong>Image file names</strong> — <code>gradinita-mica-and-kids-aer-liber.webp</code> în loc de <code>aerliber.png</code></li>
+    </ul>
+  </div>
+
+  <!-- 8. LINK-URI INTERNE -->
+  <div class="section">
+    <h2><span class="icon">🔗</span> 8. Link-uri Interne</h2>
+
+    <h3>Status actual</h3>
+    <p>Doar navbar (7 link-uri) + footer (5 link-uri) + butoane CTA. <strong>Fără link-uri contextuale în conținut.</strong></p>
+
+    <h3>Ce trebuie adăugat</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Homepage → Servicii</span><span class="item-desc">Link-uri din textul descriptiv către paginile individuale</span></li>
+      <li><span class="item-title">Servicii → Program &amp; Tarife</span><span class="item-desc">"Vezi tarifele pentru [serviciu]"</span></li>
+      <li><span class="item-title">Program &amp; Tarife → Contact</span><span class="item-desc">"Contactează-ne pentru înscriere"</span></li>
+      <li><span class="item-title">Despre noi → Servicii</span><span class="item-desc">"Descoperă ce oferim"</span></li>
+      <li><span class="item-title">Despre noi → Galerie</span><span class="item-desc">"Vezi poze din activitățile noastre"</span></li>
+      <li><span class="item-title">Galerie → Contact</span><span class="item-desc">"Vino să ne cunoști"</span></li>
+      <li><span class="item-title">Petreceri → Contact</span><span class="item-desc">"Rezervă acum"</span></li>
+      <li><span class="item-title">Breadcrumbs pe toate paginile</span><span class="item-desc">Home &gt; [Pagina curentă] — vizual + Schema.org</span></li>
+      <li><span class="item-title">Footer → Program &amp; Tarife + Petreceri</span><span class="item-desc">Aceste 2 pagini LIPSESC din footer</span></li>
+    </ul>
+  </div>
+
+  <!-- 9. LINK-URI EXTERNE -->
+  <div class="section">
+    <h2><span class="icon">🌐</span> 9. Link-uri Externe (Backlinks)</h2>
+
+    <ul class="checklist">
+      <li><span class="item-title">Directoare locale</span><span class="item-desc"><code>gradinite.ro</code>, <code>gradinita.com.ro</code>, <code>infogrădiniță.ro</code>, <code>creșe.ro</code></span></li>
+      <li><span class="item-title">Lista primăriei Popești Leordeni</span><span class="item-desc">Solicitare listare pe <code>primaria-popesti-leordeni.ro</code></span></li>
+      <li><span class="item-title">ARACIP</span><span class="item-desc">Dacă grădinița este acreditată — listare oficială</span></li>
+      <li><span class="item-title">Facebook Page</span><span class="item-desc">Cu adresă, program, link către site, foto</span></li>
+      <li><span class="item-title">Instagram</span><span class="item-desc">Profil business cu link în bio</span></li>
+      <li><span class="item-title">TikTok (opțional)</span><span class="item-desc">Video-uri cu activități, mascota</span></li>
+      <li><span class="item-title">YouTube</span><span class="item-desc">Canal cu video-uri activități, tur virtual</span></li>
+      <li><span class="item-title">Google Maps</span><span class="item-desc">Prin Google Business Profile</span></li>
+      <li><span class="item-title">Waze</span><span class="item-desc">Adăugare/verificare locație</span></li>
+      <li><span class="item-title">Parteneri</span><span class="item-desc">Link-uri reciproce cu furnizori, parteneri catering, etc.</span></li>
+      <li><span class="item-title">Presă locală</span><span class="item-desc">Articole în ziare locale Ilfov</span></li>
+      <li><span class="item-title">Bloguri parenting</span><span class="item-desc">Colaborări, menționări, guest posts</span></li>
+      <li><span class="item-title">Forsite.ro</span><span class="item-desc">Deja există link în footer — verifică reciprocitate (link de pe forsite.ro către site)</span></li>
+    </ul>
+  </div>
+
+  <!-- 10. OPEN GRAPH -->
+  <div class="section">
+    <h2><span class="icon">📱</span> 10. Open Graph &amp; Social Sharing</h2>
+
+    <ul class="checklist">
+      <li><span class="item-title">Setare <code>metadataBase</code> în <code>layout.tsx</code></span><span class="item-desc"><code>metadataBase: new URL("https://gradinitamicaandkids.ro")</code></span></li>
+      <li><span class="item-title">Creare OG image default</span><span class="item-desc">1200x630px, cu logo + mascota + text "Mica and Kids"</span></li>
+      <li><span class="item-title">OG metadata pe fiecare pagină</span><span class="item-desc"><code>og:title</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code>, <code>og:type</code>, <code>og:locale: "ro_RO"</code>, <code>og:site_name</code></span></li>
+      <li><span class="item-title">Twitter Card</span><span class="item-desc"><code>summary_large_image</code> pe fiecare pagină</span></li>
+      <li><span class="item-title">Next.js file conventions</span><span class="item-desc"><code>app/opengraph-image.png</code> (static) sau <code>app/opengraph-image.tsx</code> (dinamic per pagină)</span></li>
+    </ul>
+  </div>
+
+  <!-- 11. CORE WEB VITALS -->
+  <div class="section">
+    <h2><span class="icon">⚡</span> 11. Core Web Vitals &amp; Performance</h2>
+
+    <h3>Metrici Google (2026)</h3>
+    <table>
+      <thead><tr><th>Metrică</th><th>Target</th><th>Status actual</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LCP</strong> (Largest Contentful Paint)</td><td>&lt; 2.5s</td><td><span class="badge badge-high">Afectat</span> Modele 3D + video grele</td></tr>
+        <tr><td><strong>INP</strong> (Interaction to Next Paint)</td><td>&lt; 200ms</td><td><span class="badge badge-medium">Probabil OK</span></td></tr>
+        <tr><td><strong>CLS</strong> (Cumulative Layout Shift)</td><td>&lt; 0.1</td><td><span class="badge badge-medium">Posibil OK</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Probleme actuale</h3>
+    <ul>
+      <li><strong>Preloader</strong> — bloca 3s (acum 800ms-2s, îmbunătățit ✓)</li>
+      <li><strong>Modele 3D</strong> — 3.5MB total, încărcate global pe fiecare pagină prin <code>layout.tsx</code></li>
+      <li><strong>Video</strong> — 8.8MB <code>micabun.mp4</code> (acum preload="none" în Hero ✓)</li>
+      <li><strong>Imagini PNG</strong> — 1.7-1.8MB fiecare (<code>aerliber.png</code>, <code>natura.png</code>, <code>echipamica.png</code>) — necesită conversie WebP</li>
+      <li><strong>Render loop 3D</strong> — <code>requestAnimationFrame</code> continuu (acum pauzat pe tab inactiv ✓)</li>
+      <li><strong>Imagini fără <code>sizes</code> prop</strong> — warnings Next.js Image, afectează CLS</li>
+      <li><strong>Logo fără aspect ratio</strong> — <code>width</code> modificat fără <code>height: "auto"</code></li>
+    </ul>
+
+    <h3>Ce trebuie făcut</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Conversie imagini PNG → WebP</span><span class="item-desc">Reducere 60-80% dimensiune</span></li>
+      <li><span class="item-title">Adăugare <code>sizes</code> prop la toate componentele <code>next/image</code></span><span class="item-desc">Pentru lazy loading corect</span></li>
+      <li><span class="item-title">Lazy load modele 3D pe paginile secundare</span><span class="item-desc">Nu încărca Kid3D + Phone3D pe toate paginile, doar pe homepage</span></li>
+      <li><span class="item-title">Optimizare video</span><span class="item-desc">Comprimare <code>micabun.mp4</code> sau conversie în WebM/AV1</span></li>
+      <li><span class="item-title">Configurare <code>next.config.ts</code></span><span class="item-desc">Compresie, image optimization, headers de cache</span></li>
+      <li><span class="item-title">Testare cu PageSpeed Insights</span><span class="item-desc"><code>pagespeed.web.dev</code> — mobile + desktop</span></li>
+      <li><span class="item-title">Testare cu Lighthouse</span><span class="item-desc">Audit complet: Performance, Accessibility, Best Practices, SEO</span></li>
+    </ul>
+  </div>
+
+  <!-- 12. COOKIE BANNER / GDPR -->
+  <div class="section">
+    <h2><span class="icon">🍪</span> 12. Cookie Banner / GDPR</h2>
+
+    <div class="priority-box priority-high">
+      <strong>Obligatoriu pentru GA4 / Facebook Pixel în UE</strong>
+      Conform GDPR și legii 506/2004 (România), este obligatoriu un banner de consent pentru cookie-uri non-esențiale (analytics, marketing).
+    </div>
+
+    <ul class="checklist">
+      <li><span class="item-title">Implementare cookie consent banner</span><span class="item-desc">Soluții: <a href="https://cookieconsent.orestbida.com/">CookieConsent (OSS)</a>, <a href="https://www.cookiebot.com/">Cookiebot</a>, <a href="https://termly.io/">Termly</a></span></li>
+      <li><span class="item-title">Blocare GA4/Pixel până la consent</span><span class="item-desc">GTM Consent Mode v2 — Google necesită consent explicit</span></li>
+      <li><span class="item-title">Pagina Politică de Confidențialitate</span><span class="item-desc"><code>/privacy</code> sau <code>/politica-confidentialitate</code></span></li>
+      <li><span class="item-title">Pagina Termeni și Condiții</span><span class="item-desc"><code>/termeni</code> sau <code>/termeni-si-conditii</code></span></li>
+    </ul>
+  </div>
+
+  <!-- 13. ALTE ELEMENTE -->
+  <div class="section">
+    <h2><span class="icon">📋</span> 13. Alte Elemente SEO</h2>
+
+    <h3>Pagini lipsă</h3>
+    <ul class="checklist">
+      <li><span class="item-title"><code>app/not-found.tsx</code> — Pagina 404 custom</span><span class="item-desc">Cu logo, link către homepage, mesaj prietenos</span></li>
+      <li><span class="item-title"><code>app/privacy/page.tsx</code> — Politică de confidențialitate</span><span class="item-desc">Obligatoriu pentru GDPR + GA4/Pixel</span></li>
+      <li><span class="item-title"><code>app/termeni/page.tsx</code> — Termeni și condiții</span><span class="item-desc">Pentru serviciile oferite + petreceri</span></li>
+    </ul>
+
+    <h3>Optimizări conținut</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Alt text optimizat pentru toate imaginile</span><span class="item-desc">Cu cuvinte cheie naturale, nu generic</span></li>
+      <li><span class="item-title">Heading hierarchy corectă</span><span class="item-desc">1x H1 per pagină, H2-H3 structurat</span></li>
+      <li><span class="item-title">Redenumire fișiere imagine</span><span class="item-desc"><code>gradinita-mica-and-kids-aer-liber.webp</code> în loc de <code>aerliber.png</code></span></li>
+      <li><span class="item-title">Adăugare text SEO pe paginile subțiri</span><span class="item-desc">Galeria are foarte puțin text — adăugare descrieri</span></li>
+      <li><span class="item-title">Formular de contact funcțional</span><span class="item-desc">Necesită backend (API route + email service)</span></li>
+      <li><span class="item-title">Hartă Google Maps în pagina Contact</span><span class="item-desc">Embed cu adresa reală</span></li>
+    </ul>
+
+    <h3>Bing Webmaster Tools (opțional)</h3>
+    <ul>
+      <li>Creare cont pe <code>bing.com/webmasters</code></li>
+      <li>Submit sitemap</li>
+      <li>Verificare indexare</li>
+      <li>Minor pentru piața RO (Google are ~95% market share)</li>
+    </ul>
+  </div>
+
+  <!-- 14. PLAN DE IMPLEMENTARE -->
+  <div class="section">
+    <h2><span class="icon">🎯</span> 14. Plan de Implementare (Priorități)</h2>
+
+    <h3>🔥 Faza 1 — Critic</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Când site-ul este 100% finalizat: schimbă <code>robots.txt</code> → <code>allow: /</code> + sitemap reference. Indexarea va porni automat după această schimbare.</span></li>
+      <li><span class="item-title">Creare sitemap cu toate paginile</span></li>
+      <li><span class="item-title">Setare <code>metadataBase</code> în <code>layout.tsx</code></span></li>
+      <li><span class="item-title">Adăugare canonical URLs pe fiecare pagină</span></li>
+      <li><span class="item-title">Adăugare Open Graph + Twitter Cards pe fiecare pagină</span></li>
+      <li><span class="item-title">Creare Google Business Profile</span></li>
+      <li><span class="item-title">Verificare site în Google Search Console</span></li>
+      <li><span class="item-title">Submit sitemap în GSC + request indexing</span></li>
+    </ul>
+
+    <h3>⚠️ Faza 2 — Ridicat</h3>
+    <ul class="checklist">
+      <li><span class="item-priority"><span class="badge badge-high">Ridicat</span></span><span class="item-title">Implementare Schema.org JSON-LD (Preschool, Service, FAQ, Breadcrumbs)</span></li>
+      <li><span class="item-title">Instalare Google Tag Manager</span></li>
+      <li><span class="item-title">Configurare GA4 prin GTM</span></li>
+      <li><span class="item-title">Implementare cookie consent banner</span></li>
+      <li><span class="item-title">Creare OG image (1200x630px)</span></li>
+      <li><span class="item-title">Creare web manifest (PWA)</span></li>
+      <li><span class="item-title">Optimizare alt text imagini</span></li>
+      <li><span class="item-title">Adăugare internal links contextuale</span></li>
+      <li><span class="item-title">Adăugare breadcrumbs vizuale + Schema.org</span></li>
+      <li><span class="item-title">Creare pagini: 404, Privacy, Termeni</span></li>
+    </ul>
+
+    <h3>📦 Faza 3 — Mediu</h3>
+    <ul class="checklist">
+      <li><span class="item-priority"><span class="badge badge-medium">Mediu</span></span><span class="item-title">Conversie imagini PNG → WebP</span></li>
+      <li><span class="item-title">Adăugare <code>sizes</code> prop la toate imaginile</span></li>
+      <li><span class="item-title">Lazy load modele 3D doar pe homepage</span></li>
+      <li><span class="item-title">Optimizare video (comprimare)</span></li>
+      <li><span class="item-title">Optimizare viteză site (cache, compresie)</span></li>
+      <li><span class="item-title">Hartă Google Maps în Contact</span></li>
+      <li><span class="item-title">Formular contact funcțional (API route + email)</span></li>
+      <li><span class="item-title">Înregistrare în directoare locale</span></li>
+      <li><span class="item-title">Creare Facebook Page + Instagram</span></li>
+      <li><span class="item-title">Testare PageSpeed Insights + Lighthouse</span></li>
+    </ul>
+
+    <h3>🔄 Faza 4 — Continuous (lunar)</h3>
+    <ul class="checklist">
+      <li><span class="item-title">Monitorizare GSC — indexare, queries, errors</span></li>
+      <li><span class="item-title">Monitorizare GA4 — trafic, conversions, audiences</span></li>
+      <li><span class="item-title">Post-uri Google Business Profile săptămânal</span></li>
+      <li><span class="item-title">Colectare recenzii Google</span></li>
+      <li><span class="item-title">Actualizare sitemap la adăugare pagini noi</span></li>
+      <li><span class="item-title">Backlink building — directoare, parteneri, presă</span></li>
+    </ul>
+  </div>
+
+  <!-- 15. CONCLUZIE -->
+  <div class="section">
+    <h2><span class="icon">✅</span> Concluzie</h2>
+    <p>Site-ul <strong>Mica and Kids</strong> are o bază tehnică solidă (Next.js 16, SSR, metadata de bază). <code>robots.txt</code> este setat intenționat pe <code>Disallow: /</code> — site-ul va începe să se indexeze în Google doar când este 100% finalizat.</p>
+    <p style="margin-top: 16px;"><strong>După finalizare și activare indexare, Google va începe să crawleze site-ul în 3-7 zile.</strong></p>
+  </div>
+
+</div>
+
+</body>
+</html>
