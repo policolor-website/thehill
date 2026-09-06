@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import PlayerCharts from "@/components/PlayerCharts";
 
 // Flag: afișare poze jucători. Schimbă în true DUPĂ ce primești acord oficial FRF.
 const SHOW_PHOTOS = false;
@@ -232,66 +233,8 @@ export default function JucatorPage() {
           </div>
         )}
 
-        {/* Results W/D/L */}
-        {stat && stat.w + stat.dw + stat.ls > 0 && (
-          <div className="card-navy p-6 mb-8">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4">
-              Rezultate meciuri
-            </h3>
-            <div className="flex gap-6">
-              <div className="text-center">
-                <div className="text-2xl font-display font-bold text-green">{stat.w}</div>
-                <div className="text-xs text-muted">Victorii</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-display font-bold text-amber">{stat.dw}</div>
-                <div className="text-xs text-muted">Egaluri</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-display font-bold text-red">{stat.ls}</div>
-                <div className="text-xs text-muted">Înfrângeri</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Positions played */}
-        {stat && stat.ps.length > 0 && (
-          <div className="card-navy p-6 mb-8">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4">
-              Poziții jucate
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {stat.ps.map((pos) => (
-                <span
-                  key={pos}
-                  className="px-4 py-2 rounded-full text-sm font-medium border border-white/8 bg-navy-light text-foreground"
-                >
-                  {pos}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Competitions */}
-        {stat && stat.co.length > 0 && (
-          <div className="card-navy p-6 mb-8">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4">
-              Competiții
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {stat.co.map((comp) => (
-                <span
-                  key={comp}
-                  className="px-4 py-2 rounded-full text-sm font-medium border border-violet/20 bg-violet/5 text-violet"
-                >
-                  {comp}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Charts */}
+        {stat && <PlayerCharts stat={stat} />}
 
         {/* Match history */}
         {stat && stat.mt && stat.mt.length > 0 && (
