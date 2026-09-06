@@ -16,6 +16,7 @@ type Club = {
 type Player = {
   clubId: string;
   clubName: string;
+  competition: string;
 };
 
 export default function CluburiPage() {

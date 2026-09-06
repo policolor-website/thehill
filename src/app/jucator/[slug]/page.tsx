@@ -179,10 +179,10 @@ export default function JucatorPage() {
     let wins = 0, draws = 0, losses = 0;
     playerMatches.forEach((ms) => {
       const match = matchDetails[ms.matchId];
-      if (!match || match.homeGoals === null) return;
+      if (!match || match.homeGoals === null || match.awayGoals === null) return;
       const isHome = ms.clubSide === "home";
-      const myGoals = isHome ? match.homeGoals : match.awayGoals;
-      const oppGoals = isHome ? match.awayGoals : match.homeGoals;
+      const myGoals: number = isHome ? match.homeGoals : match.awayGoals;
+      const oppGoals: number = isHome ? match.awayGoals : match.homeGoals;
       if (myGoals > oppGoals) wins++;
       else if (myGoals < oppGoals) losses++;
       else draws++;
@@ -406,11 +406,11 @@ export default function JucatorPage() {
                 const score = match && match.homeGoals !== null
                   ? `${match.homeGoals} - ${match.awayGoals}`
                   : "—";
-                const result = match && match.homeGoals !== null
+                const result = match && match.homeGoals !== null && match.awayGoals !== null
                   ? (() => {
                       const isHome = ms.clubSide === "home";
-                      const my = isHome ? match.homeGoals : match.awayGoals;
-                      const oppG = isHome ? match.awayGoals : match.homeGoals;
+                      const my: number = isHome ? match.homeGoals : match.awayGoals;
+                      const oppG: number = isHome ? match.awayGoals : match.homeGoals;
                       if (my > oppG) return "W";
                       if (my < oppG) return "L";
                       return "D";
