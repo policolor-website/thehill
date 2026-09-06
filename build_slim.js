@@ -42,9 +42,51 @@ console.log('players_list.json:', (fs.statSync(path.join(dataDir, 'players_list.
 const ms = JSON.parse(fs.readFileSync(path.join(dataDir, 'match_sheets.json'), 'utf8'));
 const matches = JSON.parse(fs.readFileSync(path.join(dataDir, 'matches.json'), 'utf8'));
 
+// Încarcă scorurile din scores.json (colectate cu GetFRFMatches)
+let scoresData = [];
+try {
+  scoresData = JSON.parse(fs.readFileSync(path.join(dataDir, 'scores.json'), 'utf8'));
+  console.log('scores.json încărcat:', scoresData.length, 'scoruri');
+} catch (e) {
+  console.log('scores.json nu există — folosim doar scorurile din matches.json');
+}
+
+// Normalizează nume club — scoate diacritice, sufixe legale, prescurtări
+function normClub(name) {
+  return (name || '').trim().toLowerCase()
+    .replace(/[ăâ]/g, 'a').replace(/[î]/g, 'i').replace(/[șş]/g, 's').replace(/[țţ]/g, 't')
+    .replace(/\b(fc|sc|acs|afc|cs|cfk|fk|lps|fcsa|sa|s\.a)\b/g, '')
+    .replace(/\./g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Index scoruri pe dată pentru potrivire flexibilă
+const scoresByDate = {};
+scoresData.forEach(s => {
+  if (!scoresByDate[s.date]) scoresByDate[s.date] = [];
+  scoresByDate[s.date].push(s);
+});
+
+// Caută scor pentru un meci (din scores.json, match pe dată + nume cluburi normale)
+function findScore(date, homeName, awayName) {
+  const sameDate = scoresByDate[date] || [];
+  const h1 = normClub(homeName), a1 = normClub(awayName);
+  const match = sameDate.find(s => {
+    const h2 = normClub(s.homeClubName), a2 = normClub(s.awayClubName);
+    return (h1 === h2 || h1.includes(h2) || h2.includes(h1)) &&
+           (a1 === a2 || a1.includes(a2) || a2.includes(a1));
+  });
+  if (match) return { homeGoals: match.homeGoals, awayGoals: match.awayGoals };
+  return null;
+}
+
 // Map meciuri
 const matchMap = {};
 matches.forEach(m => { matchMap[m.matchId] = m; });
+
+// Statistici reconciliere scoruri
+let scoresFromMatches = 0, scoresFromFRF = 0, scoresTotal = 0;
 
 // Agregă per jucător
 const byPlayer = {};
@@ -82,12 +124,28 @@ ms.forEach(m => {
   // Detalii meci — format compact array [data, competiție, rol, poziție, căpitan, opponent, scor, rezultat]
   const match = matchMap[m.matchId];
   const opp = match ? (m.clubSide === 'home' ? match.awayClubName : match.homeClubName) : '';
-  const score = match && match.homeGoals !== null ? `${match.homeGoals}-${match.awayGoals}` : '';
+
+  // Scor: încearcă matches.json, apoi scores.json (GetFRFMatches)
+  let homeGoals = match ? match.homeGoals : null;
+  let awayGoals = match ? match.awayGoals : null;
+  if ((homeGoals === null || awayGoals === null) && match) {
+    const frfScore = findScore(match.date, match.homeClubName, match.awayClubName);
+    if (frfScore) {
+      homeGoals = frfScore.homeGoals;
+      awayGoals = frfScore.awayGoals;
+      scoresFromFRF++;
+    }
+  } else if (homeGoals !== null) {
+    scoresFromMatches++;
+  }
+
+  const score = homeGoals !== null ? `${homeGoals}-${awayGoals}` : '';
   let result = '';
-  if (match && match.homeGoals !== null && match.awayGoals !== null) {
+  if (homeGoals !== null && awayGoals !== null) {
+    scoresTotal++;
     const isHome = m.clubSide === 'home';
-    const my = isHome ? match.homeGoals : match.awayGoals;
-    const op = isHome ? match.awayGoals : match.homeGoals;
+    const my = isHome ? homeGoals : awayGoals;
+    const op = isHome ? awayGoals : homeGoals;
     if (my > op) { p.w++; result = 'W'; }
     else if (my < op) { p.ls++; result = 'L'; }
     else { p.d++; result = 'D'; }
@@ -119,6 +177,7 @@ const playerStats = Object.values(byPlayer).map(p => {
 });
 fs.writeFileSync(path.join(dataDir, 'player_stats.json'), JSON.stringify(playerStats));
 console.log('player_stats.json:', (fs.statSync(path.join(dataDir, 'player_stats.json')).size / 1024 / 1024).toFixed(1) + 'MB', playerStats.length, 'jucători');
+console.log('Scoruri: din matches.json:', scoresFromMatches, '| din scores.json (FRF):', scoresFromFRF, '| total cu scor:', scoresTotal);
 
 // 3. clubs_slim.json — doar cluburi cu juniori
 const clubs = JSON.parse(fs.readFileSync(path.join(dataDir, 'clubs.json'), 'utf8'));
