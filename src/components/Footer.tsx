@@ -33,6 +33,7 @@ export default function Footer() {
               <li><Link href="/meciuri" className="text-muted hover:text-violet no-underline transition-colors text-sm">Meciuri</Link></li>
               <li><Link href="/despre" className="text-muted hover:text-violet no-underline transition-colors text-sm">Despre</Link></li>
               <li><Link href="/contact" className="text-muted hover:text-violet no-underline transition-colors text-sm">Contact</Link></li>
+              <li><Link href="/confidentialitate" className="text-muted hover:text-violet no-underline transition-colors text-sm">Confidențialitate</Link></li>
             </ul>
           </div>
 
