@@ -5,6 +5,9 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
+// Flag: afișare poze jucători. Schimbă în true DUPĂ ce primești acord oficial FRF.
+const SHOW_PHOTOS = false;
+
 type Player = {
   f: string;
   l: string;
@@ -151,7 +154,7 @@ export default function JucatorPage() {
             {/* Photo */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border border-white/10 bg-navy-light">
-                {stat?.ph ? (
+                {SHOW_PHOTOS && stat?.ph ? (
                   <Image
                     src={stat.ph}
                     alt={`${player.f} ${player.l}`}
