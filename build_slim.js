@@ -121,9 +121,10 @@ ms.forEach(m => {
     p.ph = m.photo;
   }
 
-  // Detalii meci — format compact array [data, competiție, rol, poziție, căpitan, opponent, scor, rezultat]
+  // Detalii meci — format compact array [data, competiție, rol, poziție, căpitan, opponent, oppId, scor, rezultat]
   const match = matchMap[m.matchId];
   const opp = match ? (m.clubSide === 'home' ? match.awayClubName : match.homeClubName) : '';
+  const oppId = match ? (m.clubSide === 'home' ? match.awayClubId : match.homeClubId) : '';
 
   // Scor: încearcă matches.json, apoi scores.json (GetFRFMatches)
   let homeGoals = match ? match.homeGoals : null;
@@ -151,7 +152,7 @@ ms.forEach(m => {
     else { p.d++; result = 'D'; }
   }
 
-  p.mt.push([m.date, m.competitionName, m.role, cleanPos || '', m.isCaptain ? 1 : 0, opp, score, result]);
+  p.mt.push([m.date, m.competitionName, m.role, cleanPos || '', m.isCaptain ? 1 : 0, opp, oppId, score, result]);
 });
 
 // Convert Sets to arrays — cu TOATE meciurile din 2026 incluse

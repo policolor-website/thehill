@@ -17,8 +17,8 @@ type Player = {
   co: string;
 };
 
-type MatchEntry = [string, string, string, string, number, string, string, string];
-// [data, competiție, rol, poziție, căpitan(0/1), opponent, scor, rezultat(W/D/L)]
+type MatchEntry = [string, string, string, string, number, string, string, string, string];
+// [data, competiție, rol, poziție, căpitan(0/1), opponent, oppId, scor, rezultat(W/D/L)]
 
 type PlayerStat = {
   f: string;
@@ -298,7 +298,7 @@ export default function JucatorPage() {
             </h2>
             <div className="space-y-2">
               {stat.mt.map((m, i) => {
-                const [date, comp, role, pos, captain, opp, score, result] = m;
+                const [date, comp, role, pos, captain, opp, oppId, score, result] = m;
                 const resultColor =
                   result === "W" ? "text-green" :
                   result === "L" ? "text-red" :
@@ -344,7 +344,13 @@ export default function JucatorPage() {
                     <div className="flex items-center justify-between gap-3 md:flex-1 md:min-w-0">
                       {/* Opponent */}
                       <div className="text-sm text-foreground md:flex-1 md:min-w-0 md:truncate break-words">
-                        vs {opp || "—"}
+                        {oppId ? (
+                          <Link href={`/club/${oppId}`} className="hover:text-violet transition-colors">
+                            vs {opp || "—"}
+                          </Link>
+                        ) : (
+                          <span>vs {opp || "—"}</span>
+                        )}
                       </div>
 
                       {/* Score */}
