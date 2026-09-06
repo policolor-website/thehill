@@ -21,6 +21,7 @@ function cleanPosition(pos) {
     'Mijloca\u0219 central': 'Mijlocaș central',
   };
   if (map[pos]) return map[pos];
+  if (pos === 'Pozitie') return null; // placeholder din API, ignor
   // Curăță replacement chars \ufffd (65533)
   // Funda\ufffd\ufffd central -> Fundaș central
   // Mijloca\ufffd\ufffd central -> Mijlocaș central
@@ -40,8 +41,10 @@ function cleanPosition(pos) {
 const playerPositions = {};
 matchSheets.forEach(m => {
   const key = m.firstName.trim().toLowerCase() + '|' + m.lastName.trim().toLowerCase();
+  const pos = cleanPosition(m.position);
+  if (!pos) return; // skip null (placeholder 'Pozitie')
   if (!playerPositions[key]) playerPositions[key] = new Set();
-  playerPositions[key].add(cleanPosition(m.position));
+  playerPositions[key].add(pos);
 });
 
 // Adaugă positions la fiecare jucător

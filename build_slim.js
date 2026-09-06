@@ -13,6 +13,7 @@ function cleanPosition(pos) {
     'Mijloca\u0219 central': 'Mijlocaș central',
   };
   if (map[pos]) return map[pos];
+  if (pos === 'Pozitie') return null;
   if (pos.includes('\ufffd')) {
     if (pos.startsWith('Funda') && !pos.includes('ș') && pos.includes('central')) return 'Fundaș central';
     if (pos.includes('ș') && pos.includes('st') && pos.includes('nga')) return 'Fundaș stânga';
@@ -70,7 +71,8 @@ ms.forEach(m => {
   if (m.role === 'titular') p.ti++;
   if (m.role === 'rezervă') p.re++;
   if (m.isCaptain) p.cp++;
-  p.ps.add(cleanPosition(m.position));
+  const cleanPos = cleanPosition(m.position);
+  if (cleanPos) p.ps.add(cleanPos);
   p.co.add(m.competitionName);
   p.cl.add(m.clubName);
   if (m.photo && m.photo !== 'null' && m.photo.startsWith('http') && !p.ph) {
@@ -91,13 +93,13 @@ ms.forEach(m => {
     else { p.d++; result = 'D'; }
   }
 
-  p.mt.push([m.date, m.competitionName, m.role, cleanPosition(m.position), m.isCaptain ? 1 : 0, opp, score, result]);
+  p.mt.push([m.date, m.competitionName, m.role, cleanPos || '', m.isCaptain ? 1 : 0, opp, score, result]);
 });
 
 // Convert Sets to arrays — cu ultimele 15 meciuri incluse
 const playerStats = Object.values(byPlayer).map(p => {
   // Sortează meciurile descrescător după dată și păstrează ultimele 15
-  const sortedMt = p.mt.sort((a, b) => b[0].localeCompare(a[0])).slice(0, 3);
+  const sortedMt = p.mt.sort((a, b) => b[0].localeCompare(a[0])).slice(0, 5);
   return {
     f: p.f,
     l: p.l,
