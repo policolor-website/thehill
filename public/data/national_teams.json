@@ -1,0 +1,542 @@
+[
+  {
+    "id": "u15",
+    "name": "România U15",
+    "cat": "romania-u15",
+    "players": [
+      {
+        "name": "Andrei Rareș",
+        "club": "FCSB",
+        "country": "",
+        "position": "Portar"
+      },
+      {
+        "name": "Ștefan Rădulescu",
+        "club": "ACS Petrolul 52",
+        "country": "",
+        "position": "Portar"
+      },
+      {
+        "name": "Nicolas Ivan",
+        "club": "FCSB",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Nicolas Blaj",
+        "club": "Udinese / Italia",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "David Loghin",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Nicolas Anghel",
+        "club": "CD Castellon / Spania",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Darius Roșiu",
+        "club": "Viitorul Cluj",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Massoussi Zaid",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Mario Anghel",
+        "club": "FCSB",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Gabriel Lupu",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Matei Pădure",
+        "club": "FCSB",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Alexandru Neamțu",
+        "club": "FC Bacău",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "David Gorgan",
+        "club": "Viitorul Cluj",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "David Jimborean",
+        "club": "Universitatea Cluj",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Rareș Manolache",
+        "club": "ACS Petrolul 52",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Mihai Grosu",
+        "club": "FC Rapid 1923",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Vlad Petreanu",
+        "club": "TSG Hoffenheim / Germania",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Vlad Berceanu",
+        "club": "FC Rapid 1923",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Alexandru Iovan",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Lukas Pall",
+        "club": "Viitorul Cluj",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "David Avram",
+        "club": "FCSB",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "David Oltean",
+        "club": "Olympique de Marseille / Franța",
+        "country": "",
+        "position": "Atacant"
+      }
+    ],
+    "date": "2025-05-19",
+    "sourceUrl": "https://www.frf.ro/recomandate/victorie-in-fata-japoniei-pentru-nationala-u15-in-ultimul-meci-de-la-turneul-vlatko-markovic/"
+  },
+  {
+    "id": "u16",
+    "name": "România U16",
+    "cat": "romania-u16",
+    "players": [
+      {
+        "name": "Gabriel Broștic",
+        "club": "Juventus Torino",
+        "country": "Italia",
+        "position": "Portar"
+      },
+      {
+        "name": "Ștefan Rădulescu",
+        "club": "ACS Petrolul 52",
+        "country": "",
+        "position": "Portar"
+      },
+      {
+        "name": "Nicolas Ivan",
+        "club": "FCSB",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Mario Anghel",
+        "club": "FCSB",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Damian Drăghici",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Patrick Budescu",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Darius Roșiu",
+        "club": "Viitorul Cluj",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Alexandru Drochioi",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Gabriel Gladun",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Albert Avram",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "David Gorgan",
+        "club": "Universitatea Cluj",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "David Jimborean",
+        "club": "Universitatea Cluj",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Alexandru Neamțu",
+        "club": "FC Bacău",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Matei Bărbat",
+        "club": "Cercle Brugge",
+        "country": "Belgia",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Vlad Berceanu",
+        "club": "FC Rapid 1923",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Mihai Grosu",
+        "club": "FC Rapid 1923",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Alexandru Iovan",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Ștefan Nastac",
+        "club": "FC Bacău",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Ionuț Cîra",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Lukas Pall",
+        "club": "Viitorul Cluj",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Zsolt Janosi",
+        "club": "AFK Csikszereda",
+        "country": "",
+        "position": "Atacant"
+      }
+    ],
+    "date": "2025-10-03",
+    "sourceUrl": "https://www.frf.ro/recomandate/dubla-amicala-impotriva-germaniei-pentru-reprezentativa-u16-a-romaniei/"
+  },
+  {
+    "id": "u17",
+    "name": "România U17",
+    "cat": "romania-u17",
+    "players": [
+      {
+        "name": "Yanis CROITOR",
+        "club": "RWDM Brussels",
+        "country": "Belgia",
+        "position": "Portar"
+      },
+      {
+        "name": "Victor KROES",
+        "club": "Real Betis",
+        "country": "Spania",
+        "position": "Portar"
+      },
+      {
+        "name": "Cosmin MATEI",
+        "club": "CFR Cluj",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Dragoș KIRALI",
+        "club": "Hellas Verona",
+        "country": "Italia",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Daniele PAUL",
+        "club": "AS Roma",
+        "country": "Italia",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Ayan ANGHEL",
+        "club": "CS Dinamo București",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Eduardo CORLAT",
+        "club": "Real Madrid",
+        "country": "Spania",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Claudiu STANCU",
+        "club": "CSM Slatina",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Lorand BENCZE",
+        "club": "AFK Csikszereda",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Denis AEVOAEI",
+        "club": "AS Cittadella",
+        "country": "Italia",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Ioan PRECUP",
+        "club": "CD Roda",
+        "country": "Spania",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Andrei NICULCEA",
+        "club": "FC Rapid 1923",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Ryan RUSU",
+        "club": "AC Milan",
+        "country": "Italia",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Darius TRIPON",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Apor MATHE",
+        "club": "AFK Csikszereda",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Răzvan MARINCEAN",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Alessandro CHIRA",
+        "club": "Spezia Calcio",
+        "country": "Italia",
+        "position": "Atacant"
+      },
+      {
+        "name": "Rareș SILITRA",
+        "club": "Borussia Mönchengladbach",
+        "country": "Germania",
+        "position": "Atacant"
+      },
+      {
+        "name": "Darius BOTA",
+        "club": "AFK Csikszereda",
+        "country": "",
+        "position": "Atacant"
+      }
+    ],
+    "date": "2026-06-05",
+    "sourceUrl": "https://www.frf.ro/recomandate/serbia-romania-2-1-in-al-doilea-meci-de-verificare-la-categoria-u17/"
+  },
+  {
+    "id": "u18",
+    "name": "România U18",
+    "cat": "romania-u18",
+    "players": [
+      {
+        "name": "Răzvan Farcaș",
+        "club": "CD Leganes / Spania",
+        "country": "",
+        "position": "Portar"
+      },
+      {
+        "name": "Arsenie Mocan",
+        "club": "FC Bihor",
+        "country": "",
+        "position": "Portar"
+      },
+      {
+        "name": "Costyn Gheorghe",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Mario Bordea",
+        "club": "FC Bacău",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Fabio Bădărău",
+        "club": "Juventus / Italia",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Vlad Dragomir",
+        "club": "FCSB",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Christian Vechiu",
+        "club": "AC Milan / Italia",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Roberto Gîrgel",
+        "club": "Universitatea Craiova",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Stefano Precupanu",
+        "club": "FC Südtirol / Italia",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Raul Vancea",
+        "club": "Watford FC / Anglia",
+        "country": "",
+        "position": "Fundaș"
+      },
+      {
+        "name": "Daniele Luncașu",
+        "club": "FC Bacău",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Hunor Batzula",
+        "club": "Sepsi OSK",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Rareș Coman",
+        "club": "US Sassuolo / Italia",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Bogdan Petre",
+        "club": "Chindia Târgoviște",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Ianis Podoleanu",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Robert Drăghici",
+        "club": "FC Augsburg / Germania",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Denis Țăroi",
+        "club": "UTA Arad",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Matei Berchez",
+        "club": "Farul Constanța",
+        "country": "",
+        "position": "Mijlocaș"
+      },
+      {
+        "name": "Alexandru Bota",
+        "club": "Universitatea Cluj",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Sebastian Burlacu",
+        "club": "Como 1907 / Italia",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Jose Rostas",
+        "club": "Kapfenberger SV / Austria",
+        "country": "",
+        "position": "Atacant"
+      },
+      {
+        "name": "Ianis Avrămescu",
+        "club": "Parma Calcio 1913 / Italia",
+        "country": "",
+        "position": "Atacant"
+      }
+    ],
+    "date": "2025-10-14",
+    "sourceUrl": "https://www.frf.ro/recomandate/romania-u18-infrangere-la-limita-in-fata-spaniei-la-turneul-celor-4-natiuni/"
+  }
+]
