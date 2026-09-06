@@ -69,6 +69,16 @@ export default function Footer() {
           <p className="text-muted text-xs">
             {`24.983 profiluri · 209 cluburi · 1.693 meciuri`}
           </p>
+          <p className="text-muted text-xs">
+            Creat de{" "}
+            <a
+              href="https://forsite.ro"
+              className="text-violet hover:text-violet-dark no-underline transition-colors font-semibold"
+              title="FORSITE — creare site-uri și SEO"
+            >
+              FORSITE.RO
+            </a>
+          </p>
         </div>
 
         {/* Logo-uri federații */}
