@@ -61,7 +61,7 @@ ms.forEach(m => {
       ps: new Set(), // poziții
       co: new Set(), // competiții
       cl: new Set(), // cluburi
-      w: 0, d: 0, l: 0, // wins/draws/losses
+      w: 0, d: 0, ls: 0, // wins/draws/losses
       mt: [], // meciuri [{d, co, cs, cn, o, s, r, p, ic}]
     };
   }
@@ -87,7 +87,7 @@ ms.forEach(m => {
     const my = isHome ? match.homeGoals : match.awayGoals;
     const op = isHome ? match.awayGoals : match.homeGoals;
     if (my > op) { p.w++; result = 'W'; }
-    else if (my < op) { p.l++; result = 'L'; }
+    else if (my < op) { p.ls++; result = 'L'; }
     else { p.d++; result = 'D'; }
   }
 
@@ -116,7 +116,7 @@ const playerStats = Object.values(byPlayer).map(p => ({
   ps: [...p.ps],
   co: [...p.co],
   cl: [...p.cl],
-  w: p.w, dw: p.d, ls: p.l,
+  w: p.w, dw: p.d, ls: p.ls,
 }));
 fs.writeFileSync(path.join(dataDir, 'player_stats.json'), JSON.stringify(playerStats));
 console.log('player_stats.json:', (fs.statSync(path.join(dataDir, 'player_stats.json')).size / 1024 / 1024).toFixed(1) + 'MB', playerStats.length, 'jucători');
