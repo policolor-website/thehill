@@ -65,6 +65,15 @@ export default function RootLayout({
   return (
     <html lang="ro" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="font-body antialiased">
+        {/* Background image — centered, 50% opacity */}
+        <div
+          className="fixed inset-0 z-0 pointer-events-none bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url(/thehill-background.png)",
+            backgroundSize: "clamp(300px, 40vw, 800px)",
+            opacity: 0.1,
+          }}
+        />
         <div className="relative z-10">
           <Navbar />
           {children}
