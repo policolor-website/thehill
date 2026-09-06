@@ -20,7 +20,7 @@ export default function MeciuriPage() {
   const [compFilter, setCompFilter] = useState("");
 
   useEffect(() => {
-    fetch("/data/matches.json?v=2")
+    fetch("/data/matches.json?v=3")
       .then((r) => r.json())
       .then((data) => {
         // Sortează descrescător după dată
