@@ -95,10 +95,14 @@ export default function CluburiPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((c) => (
-              <div key={c.id} className="card-navy p-5 transition-all hover:border-violet/25">
+              <Link
+                key={c.id}
+                href={`/club/${c.id}`}
+                className="card-navy p-5 no-underline transition-all hover:border-violet/25 group"
+              >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="font-display text-lg font-semibold text-foreground">
+                    <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-violet transition-colors">
                       {c.a || c.n}
                     </h3>
                     <p className="text-xs text-muted mt-1">
@@ -109,7 +113,7 @@ export default function CluburiPage() {
                     {playerCounts[c.id] || 0} jucători
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import Link from "next/link";
 
 type Match = {
   matchId: string;
   date: string;
   competitionName: string;
+  homeClubId: string;
   homeClubName: string;
+  awayClubId: string;
   awayClubName: string;
   homeGoals: number | null;
   awayGoals: number | null;
@@ -78,15 +81,21 @@ export default function MeciuriPage() {
                   {m.competitionName}
                 </div>
                 <div className="flex-1 flex items-center justify-between">
-                  <span className="text-sm text-foreground text-right flex-1 truncate">
+                  <Link
+                    href={`/club/${m.homeClubId}`}
+                    className="text-sm text-foreground hover:text-violet no-underline transition-colors text-right flex-1 truncate"
+                  >
                     {m.homeClubName}
-                  </span>
+                  </Link>
                   <span className="px-3 py-1 rounded-lg bg-navy-light text-sm font-bold text-foreground mx-3">
                     {m.homeGoals !== null ? `${m.homeGoals} - ${m.awayGoals}` : "VS"}
                   </span>
-                  <span className="text-sm text-foreground flex-1 truncate">
+                  <Link
+                    href={`/club/${m.awayClubId}`}
+                    className="text-sm text-foreground hover:text-violet no-underline transition-colors flex-1 truncate"
+                  >
                     {m.awayClubName}
-                  </span>
+                  </Link>
                 </div>
               </div>
             ))}
