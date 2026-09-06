@@ -77,11 +77,11 @@ ms.forEach(m => {
     p.ph = m.photo;
   }
 
-  // Detalii meci
+  // Detalii meci — format compact array [data, competiție, rol, poziție, căpitan, opponent, scor, rezultat]
   const match = matchMap[m.matchId];
-  const opp = match ? (m.clubSide === 'home' ? match.awayClubName : match.homeClubName) : '—';
-  const score = match && match.homeGoals !== null ? `${match.homeGoals}-${match.awayGoals}` : null;
-  let result = null;
+  const opp = match ? (m.clubSide === 'home' ? match.awayClubName : match.homeClubName) : '';
+  const score = match && match.homeGoals !== null ? `${match.homeGoals}-${match.awayGoals}` : '';
+  let result = '';
   if (match && match.homeGoals !== null && match.awayGoals !== null) {
     const isHome = m.clubSide === 'home';
     const my = isHome ? match.homeGoals : match.awayGoals;
@@ -91,44 +91,30 @@ ms.forEach(m => {
     else { p.d++; result = 'D'; }
   }
 
-  p.mt.push({
-    d: m.date,
-    co: m.competitionName,
-    cs: m.clubSide,
-    r: m.role,
-    p: cleanPosition(m.position),
-    ic: m.isCaptain,
-    o: opp,
-    s: score,
-    rs: result,
-  });
+  p.mt.push([m.date, m.competitionName, m.role, cleanPosition(m.position), m.isCaptain ? 1 : 0, opp, score, result]);
 });
 
-// Convert Sets to arrays — fără istoric meciuri (mt separat)
-const playerStats = Object.values(byPlayer).map(p => ({
-  f: p.f,
-  l: p.l,
-  ph: p.ph,
-  tm: p.tm,
-  ti: p.ti,
-  re: p.re,
-  cp: p.cp,
-  ps: [...p.ps],
-  co: [...p.co],
-  cl: [...p.cl],
-  w: p.w, dw: p.d, ls: p.ls,
-}));
+// Convert Sets to arrays — cu ultimele 15 meciuri incluse
+const playerStats = Object.values(byPlayer).map(p => {
+  // Sortează meciurile descrescător după dată și păstrează ultimele 15
+  const sortedMt = p.mt.sort((a, b) => b[0].localeCompare(a[0])).slice(0, 3);
+  return {
+    f: p.f,
+    l: p.l,
+    ph: p.ph,
+    tm: p.tm,
+    ti: p.ti,
+    re: p.re,
+    cp: p.cp,
+    ps: [...p.ps],
+    co: [...p.co],
+    cl: [...p.cl],
+    w: p.w, dw: p.d, ls: p.ls,
+    mt: sortedMt,
+  };
+});
 fs.writeFileSync(path.join(dataDir, 'player_stats.json'), JSON.stringify(playerStats));
 console.log('player_stats.json:', (fs.statSync(path.join(dataDir, 'player_stats.json')).size / 1024 / 1024).toFixed(1) + 'MB', playerStats.length, 'jucători');
-
-// Istoric meciuri separat (pentru pagina de profil)
-const playerMatches = Object.values(byPlayer).map(p => ({
-  f: p.f,
-  l: p.l,
-  mt: p.mt,
-}));
-fs.writeFileSync(path.join(dataDir, 'player_matches.json'), JSON.stringify(playerMatches));
-console.log('player_matches.json:', (fs.statSync(path.join(dataDir, 'player_matches.json')).size / 1024 / 1024).toFixed(1) + 'MB');
 
 // 3. clubs_slim.json — doar cluburi cu juniori
 const clubs = JSON.parse(fs.readFileSync(path.join(dataDir, 'clubs.json'), 'utf8'));

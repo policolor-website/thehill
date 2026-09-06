@@ -17,6 +17,9 @@ type Player = {
   co: string;
 };
 
+type MatchEntry = [string, string, string, string, number, string, string, string];
+// [data, competiție, rol, poziție, căpitan(0/1), opponent, scor, rezultat(W/D/L)]
+
 type PlayerStat = {
   f: string;
   l: string;
@@ -31,6 +34,7 @@ type PlayerStat = {
   w: number;
   dw: number;
   ls: number;
+  mt?: MatchEntry[];
 };
 
 function getAge(birthDate: string): number {
@@ -282,6 +286,69 @@ export default function JucatorPage() {
                   {comp}
                 </span>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Match history */}
+        {stat && stat.mt && stat.mt.length > 0 && (
+          <div className="mb-8">
+            <h2 className="font-display text-2xl font-bold text-foreground mb-4">
+              Ultimele meciuri ({stat.tm} total)
+            </h2>
+            <div className="space-y-2">
+              {stat.mt.map((m, i) => {
+                const [date, comp, role, pos, captain, opp, score, result] = m;
+                const resultColor =
+                  result === "W" ? "text-green" :
+                  result === "L" ? "text-red" :
+                  result === "D" ? "text-amber" : "text-muted";
+                return (
+                  <div key={i} className="card-navy p-4 flex items-center gap-4">
+                    {/* Result badge */}
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
+                      result === "W" ? "bg-green/10 text-green" :
+                      result === "L" ? "bg-red/10 text-red" :
+                      result === "D" ? "bg-amber/10 text-amber" : "bg-navy-light text-muted"
+                    }`}>
+                      {result || "—"}
+                    </div>
+
+                    {/* Date */}
+                    <div className="text-xs text-muted w-16 flex-shrink-0">
+                      {new Date(date).toLocaleDateString("ro-RO", { day: "2-digit", month: "short" })}
+                    </div>
+
+                    {/* Role */}
+                    <div className="w-20 flex-shrink-0">
+                      <span className={`text-xs font-semibold ${
+                        role === "titular" ? "text-green" :
+                        role === "rezervă" ? "text-amber" : "text-muted"
+                      }`}>
+                        {role === "titular" ? "Titular" : role === "rezervă" ? "Rezervă" : "Rez. extra"}
+                      </span>
+                      {captain === 1 && (
+                        <span className="block text-xs text-violet">C</span>
+                      )}
+                    </div>
+
+                    {/* Position */}
+                    <div className="w-32 flex-shrink-0 text-xs text-foreground truncate hidden md:block">
+                      {pos}
+                    </div>
+
+                    {/* Opponent */}
+                    <div className="flex-1 text-sm text-foreground truncate">
+                      vs {opp || "—"}
+                    </div>
+
+                    {/* Score */}
+                    <div className={`text-sm font-bold ${resultColor} flex-shrink-0`}>
+                      {score || "—"}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
