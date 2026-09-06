@@ -7,36 +7,42 @@ const features = [
     title: "Profil complet jucător",
     desc: "Poză, vârstă, poziție, tricou, club, competiție. Toate datele de bază pentru a evalua un junior.",
     color: "text-violet",
+    img: "/features/profil-complet.png",
   },
   {
     num: "02",
     title: "Meciuri jucate",
     desc: "Vezi în câte meciuri a fost jucătorul — titular sau rezervă — și în ce poziție a jucat pe teren.",
     color: "text-green",
+    img: "/features/meciuri-jucate.png",
   },
   {
     num: "03",
     title: "14 poziții reale",
     desc: "Nu doar 4 poziții generice. Din foile de meci: fundaș dreapta, extremă stânga, mijlocaș ofensiv și mai multe.",
     color: "text-amber",
+    img: "/features/pozitii-reale.png",
   },
   {
     num: "04",
     title: "Caută după criterii",
     desc: "Filtrează după vârstă, județ, club, competiție sau poziție. Găsește exact jucătorul pe care îl cauți.",
     color: "text-pink",
+    img: "/features/cauta-criterii.png",
   },
   {
     num: "05",
     title: "209 cluburi cu loturi",
     desc: "Toate cluburile și academiile din România care au loturi de juniori înscrise la FRF.",
     color: "text-violet",
+    img: "/features/cluburi-loturi.png",
   },
   {
     num: "06",
     title: "Date oficiale FRF",
     desc: "Toate datele provin din API-ul oficial FRF/HaiLaFotbal. Nu inventăm — doar afișăm ce există.",
     color: "text-green",
+    img: "/features/date-frf.png",
   },
 ];
 
@@ -79,14 +85,19 @@ export default function Home() {
             {features.map((f) => (
               <div
                 key={f.num}
-                className="card-navy p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-violet/25"
+                className="card-navy p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-violet/25"
               >
-                <div className={`text-sm font-semibold ${f.color} tracking-widest mb-3`}>
-                  {f.num}
+                <div className="flex items-center gap-4 mb-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={f.img}
+                    alt={f.title}
+                    className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+                  />
+                  <h3 className="font-display text-lg font-semibold text-foreground">
+                    {f.title}
+                  </h3>
                 </div>
-                <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                  {f.title}
-                </h3>
                 <p className="text-sm text-muted leading-relaxed font-light">
                   {f.desc}
                 </p>
