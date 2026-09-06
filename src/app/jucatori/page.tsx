@@ -202,7 +202,7 @@ export default function JucatoriPage() {
           <div className="text-center py-20 text-muted">Niciun jucător găsit.</div>
         ) : (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {paged.map((p, i) => {
                 const age = getAge(p.b);
                 return (
