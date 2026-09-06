@@ -151,7 +151,7 @@ export default function JucatoriPage() {
                 return (
                   <Link
                     key={i}
-                    href={`/jucator/${encodeURIComponent((p.f + "-" + p.l).trim())}`}
+                    href={`/jucator/${encodeURIComponent(((p.f || "").trim() + "-" + (p.l || "").trim()).replace(/\s+/g, " "))}`}
                     className="card-navy p-4 transition-all duration-300 hover:-translate-y-1 hover:border-violet/25 no-underline"
                   >
                     <div className="flex items-center gap-3">
