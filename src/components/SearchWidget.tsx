@@ -2,18 +2,16 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
-import CustomSelect from "@/components/CustomSelect";
+import CustomSelect from "./CustomSelect";
 
 type Player = {
-  f: string; // firstName
-  l: string; // lastName
-  c: string; // clubName
-  ci: string; // clubId
-  b: string; // birthDate
-  s: string; // shirtNumber
-  p: string; // position (primary)
-  ps: string[]; // positions (all)
-  co: string; // competition
+  f: string;
+  l: string;
+  c: string;
+  b: string;
+  s: string;
+  p: string;
+  ps: string[];
 };
 
 const POSITIONS = [
@@ -31,7 +29,17 @@ const POSITIONS = [
   "Extremă stânga",
 ];
 
-export default function JucatoriPage() {
+const AGE_OPTIONS = [
+  { value: "", label: "Toate vârstele" },
+  { value: "u13", label: "U13 (≤13 ani)" },
+  { value: "u15", label: "U14–U15" },
+  { value: "u17", label: "U16–U17" },
+  { value: "u19", label: "U18–U19" },
+];
+
+
+
+export default function SearchWidget() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -41,8 +49,6 @@ export default function JucatoriPage() {
   const [clubSearch, setClubSearch] = useState("");
   const [clubDropdownOpen, setClubDropdownOpen] = useState(false);
   const clubRef = useRef<HTMLDivElement>(null);
-  const [page, setPage] = useState(0);
-  const PER_PAGE = 24;
 
   useEffect(() => {
     fetch("/data/players_list.json")
@@ -54,20 +60,17 @@ export default function JucatoriPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Extrage cluburi unice pentru dropdown
   const clubs = useMemo(() => {
     const set = new Set(players.map((p) => p.c));
     return [...set].sort();
   }, [players]);
 
-  // Cluburi filtrate după textul de căutare
   const filteredClubs = useMemo(() => {
     if (!clubSearch) return clubs;
     const q = clubSearch.toLowerCase();
     return clubs.filter((c) => c.toLowerCase().includes(q));
   }, [clubs, clubSearch]);
 
-  // Închide dropdown la click afară
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (clubRef.current && !clubRef.current.contains(e.target as Node)) {
@@ -78,14 +81,12 @@ export default function JucatoriPage() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Calculează vârsta
   const getAge = (birthDate: string) => {
     if (!birthDate) return 0;
     const year = parseInt(birthDate.substring(0, 4));
     return 2026 - year;
   };
 
-  // Filtrează
   const filtered = useMemo(() => {
     return players.filter((p) => {
       if (search) {
@@ -105,48 +106,40 @@ export default function JucatoriPage() {
     });
   }, [players, search, positionFilter, clubFilter, ageFilter]);
 
-  const paged = filtered.slice(0, page * PER_PAGE + PER_PAGE);
+  const hasFilters = search || positionFilter || ageFilter || clubFilter;
+  const previewResults = hasFilters ? filtered.slice(0, 4) : [];
 
   return (
-    <div className="pt-28 pb-20">
+    <section className="py-10">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="font-display text-3xl md:text-5xl font-bold mb-3">
-            <span className="text-gradient">Jucători</span>
-          </h1>
-          <p className="text-muted font-light">
-            {loading ? "Se încarcă..." : `${filtered.length} jucători · ${players.length} total`}
+        <div className="card-navy-glow p-6 md:p-8" style={{ overflow: "visible" }}>
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-center mb-2">
+            <span className="text-gradient">Caută jucători</span>
+          </h2>
+          <p className="text-muted text-center text-sm mb-6 font-light">
+            Filtrează după nume, poziție, vârstă sau club
           </p>
-        </div>
 
-        {/* Filters */}
-        <div className="card-navy p-5 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {/* Filters */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
             <input
               type="text"
               placeholder="Caută după nume..."
               value={search}
-              onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+              onChange={(e) => setSearch(e.target.value)}
               className="px-4 py-3 bg-navy border border-white/10 rounded-lg text-foreground text-base md:text-sm focus:border-violet focus:outline-none"
             />
             <CustomSelect
               value={positionFilter}
               placeholder="Toate pozițiile"
               options={[{ value: "", label: "Toate pozițiile" }, ...POSITIONS.map((p) => ({ value: p, label: p }))]}
-              onChange={(v) => { setPositionFilter(v); setPage(0); }}
+              onChange={setPositionFilter}
             />
             <CustomSelect
               value={ageFilter}
               placeholder="Toate vârstele"
-              options={[
-                { value: "", label: "Toate vârstele" },
-                { value: "u13", label: "U13 (≤13 ani)" },
-                { value: "u15", label: "U14–U15" },
-                { value: "u17", label: "U16–U17" },
-                { value: "u19", label: "U18–U19" },
-              ]}
-              onChange={(v) => { setAgeFilter(v); setPage(0); }}
+              options={AGE_OPTIONS}
+              onChange={setAgeFilter}
             />
             <div ref={clubRef} className="relative">
               <input
@@ -160,7 +153,7 @@ export default function JucatoriPage() {
               {clubFilter && !clubDropdownOpen && (
                 <button
                   type="button"
-                  onClick={() => { setClubFilter(""); setPage(0); }}
+                  onClick={() => setClubFilter("")}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground text-lg leading-none"
                   aria-label="Curăță filtrul"
                 >×</button>
@@ -169,7 +162,7 @@ export default function JucatoriPage() {
                 <div className="absolute z-50 mt-1 w-full max-h-60 overflow-y-auto bg-navy border border-white/10 rounded-lg shadow-xl">
                   <button
                     type="button"
-                    onClick={() => { setClubFilter(""); setClubDropdownOpen(false); setClubSearch(""); setPage(0); }}
+                    onClick={() => { setClubFilter(""); setClubDropdownOpen(false); setClubSearch(""); }}
                     className="w-full text-left px-4 py-2.5 text-base md:text-sm text-muted hover:bg-white/5"
                   >Toate cluburile</button>
                   {filteredClubs.length === 0 ? (
@@ -179,80 +172,85 @@ export default function JucatoriPage() {
                       <button
                         key={c}
                         type="button"
-                        onClick={() => { setClubFilter(c); setClubDropdownOpen(false); setClubSearch(""); setPage(0); }}
+                        onClick={() => { setClubFilter(c); setClubDropdownOpen(false); setClubSearch(""); }}
                         className={`w-full text-left px-4 py-2.5 text-base md:text-sm hover:bg-white/5 ${clubFilter === c ? "text-violet" : "text-foreground"}`}
                       >{c}</button>
                     ))
-                  )}
-                  {filteredClubs.length > 100 && (
-                    <div className="px-4 py-2 text-xs text-muted border-t border-white/5">
-                      {filteredClubs.length} cluburi — refinează căutarea
-                    </div>
                   )}
                 </div>
               )}
             </div>
           </div>
-        </div>
 
-        {/* Player grid */}
-        {loading ? (
-          <div className="text-center py-20 text-muted">Se încarcă datele...</div>
-        ) : filtered.length === 0 ? (
-          <div className="text-center py-20 text-muted">Niciun jucător găsit.</div>
-        ) : (
-          <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {paged.map((p, i) => {
-                const age = getAge(p.b);
-                return (
-                  <Link
-                    key={i}
-                    href={`/jucator/${encodeURIComponent(((p.f || "").trim() + "-" + (p.l || "").trim()).replace(/\s+/g, " "))}`}
-                    className="card-navy p-4 transition-all duration-300 hover:-translate-y-1 hover:border-violet/25 no-underline"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-navy-light border border-white/10 flex items-center justify-center text-violet font-display font-bold text-lg flex-shrink-0">
-                        {p.f.charAt(0)}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold text-foreground truncate">
-                          {p.f} {p.l}
-                        </div>
-                        <div className="text-xs text-muted truncate">
-                          {p.c}
-                        </div>
-                      </div>
+          {/* Preview results */}
+          {hasFilters && (
+            <div className="mt-6">
+              {loading ? (
+                <p className="text-muted text-sm text-center">Se încarcă...</p>
+              ) : previewResults.length === 0 ? (
+                <p className="text-muted text-sm text-center">Niciun jucător găsit.</p>
+              ) : (
+                <>
+                  <p className="text-muted text-xs mb-3">
+                    {filtered.length} rezultate găsite
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {previewResults.map((p, i) => {
+                      const age = getAge(p.b);
+                      return (
+                        <Link
+                          key={i}
+                          href={`/jucator/${encodeURIComponent(((p.f || "").trim() + "-" + (p.l || "").trim()).replace(/\s+/g, " "))}`}
+                          className="card-navy p-3 flex items-center gap-3 no-underline hover:border-violet/25 transition-all"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-navy-light border border-white/10 flex items-center justify-center text-violet font-display font-bold text-sm flex-shrink-0">
+                            {p.f.charAt(0)}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-sm font-semibold text-foreground truncate">
+                              {p.f} {p.l}
+                            </div>
+                            <div className="text-xs text-muted truncate">
+                              {p.c}
+                            </div>
+                          </div>
+                          <div className="flex gap-1.5 flex-shrink-0">
+                            <span className="px-2 py-0.5 rounded text-xs bg-green/10 text-green">
+                              {age} ani
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  {filtered.length > 4 && (
+                    <div className="text-center mt-4">
+                      <Link
+                        href="/jucatori"
+                        className="inline-block px-6 py-2.5 bg-violet text-white text-sm font-bold rounded-full no-underline hover:bg-violet-dark transition-all"
+                      >
+                        Vezi toate cele {filtered.length} rezultate →
+                      </Link>
                     </div>
-                    <div className="flex gap-2 mt-3 flex-wrap">
-                      <span className="px-2 py-0.5 rounded text-xs bg-violet/10 text-violet">
-                        {p.ps?.[0] || p.p}
-                      </span>
-                      <span className="px-2 py-0.5 rounded text-xs bg-green/10 text-green">
-                        {age} ani
-                      </span>
-                      <span className="px-2 py-0.5 rounded text-xs bg-amber/10 text-amber">
-                        #{p.s}
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
+                  )}
+                </>
+              )}
             </div>
+          )}
 
-            {paged.length < filtered.length && (
-              <div className="text-center mt-10">
-                <button
-                  onClick={() => setPage(page + 1)}
-                  className="px-8 py-3 bg-navy-light border border-white/10 text-foreground text-sm font-semibold rounded-full hover:border-violet/30 transition-all"
-                >
-                  Încarcă mai multe ({filtered.length - paged.length} rămași)
-                </button>
-              </div>
-            )}
-          </>
-        )}
+          {/* No filters — show link to all players */}
+          {!hasFilters && (
+            <div className="text-center mt-6">
+              <Link
+                href="/jucatori"
+                className="inline-block px-8 py-3 bg-violet text-white text-sm font-bold uppercase tracking-wider no-underline transition-all hover:bg-violet-dark rounded-full"
+              >
+                Caută jucători
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

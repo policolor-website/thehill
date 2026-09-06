@@ -72,7 +72,7 @@ export default function JucatorPage() {
   const playerRecords = useMemo(() => {
     if (!players.length) return [];
     const firstName = (nameParts[0] || "").trim();
-    const lastName = (nameParts.slice(1).join(" ") || "").trim();
+    const lastName = (nameParts.slice(1).join("-") || "").trim();
     const fullName = slug.replace(/-/g, " ").toLowerCase().replace(/\s+/g, " ").trim();
 
     // 1. Match exact pe f + l (cu trim)

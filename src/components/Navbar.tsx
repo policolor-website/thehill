@@ -45,7 +45,7 @@ export default function Navbar() {
           <img
             src="/logo.png"
             alt="theHILL.ro"
-            className="h-16 w-auto"
+            className="h-20 w-auto md:h-16"
           />
         </Link>
 
