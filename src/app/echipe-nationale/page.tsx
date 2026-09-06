@@ -8,6 +8,8 @@ type NationalPlayer = {
   club: string;
   country: string;
   position: string;
+  slug: string | null;
+  dbClub?: string;
 };
 
 type NationalTeam = {
@@ -132,25 +134,38 @@ export default function EchipeNationalePage() {
                             <span className="text-muted text-sm font-normal ml-2">({posPlayers.length})</span>
                           </h3>
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {posPlayers.map((p, i) => (
-                              <div
-                                key={i}
-                                className="card-navy p-4 flex items-center gap-3"
-                              >
-                                <div className="w-10 h-10 rounded-full bg-navy-light border border-white/10 flex items-center justify-center text-violet font-display font-bold text-sm flex-shrink-0">
-                                  {p.name.charAt(0)}
+                            {posPlayers.map((p, i) => {
+                              const card = (
+                                <div
+                                  className={`card-navy p-4 flex items-center gap-3 transition-all ${
+                                    p.slug ? "hover:border-violet/50 cursor-pointer" : ""
+                                  }`}
+                                >
+                                  <div className="w-10 h-10 rounded-full bg-navy-light border border-white/10 flex items-center justify-center text-violet font-display font-bold text-sm flex-shrink-0">
+                                    {p.name.charAt(0)}
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <p className="font-semibold text-sm text-foreground truncate flex items-center gap-1.5">
+                                      {p.name}
+                                      {p.slug && (
+                                        <span className="text-violet text-xs">↗</span>
+                                      )}
+                                    </p>
+                                    <p className="text-xs text-muted truncate">
+                                      {p.club}
+                                      {p.country && ` · ${p.country}`}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="min-w-0 flex-1">
-                                  <p className="font-semibold text-sm text-foreground truncate">
-                                    {p.name}
-                                  </p>
-                                  <p className="text-xs text-muted truncate">
-                                    {p.club}
-                                    {p.country && ` · ${p.country}`}
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
+                              );
+                              return p.slug ? (
+                                <Link key={i} href={`/jucator/${p.slug}`} className="no-underline">
+                                  {card}
+                                </Link>
+                              ) : (
+                                <div key={i}>{card}</div>
+                              );
+                            })}
                           </div>
                         </div>
                       );

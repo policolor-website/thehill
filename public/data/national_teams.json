@@ -8,133 +8,219 @@
         "name": "Andrei Rareș",
         "club": "FCSB",
         "country": "",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": null
       },
       {
         "name": "Ștefan Rădulescu",
         "club": "ACS Petrolul 52",
         "country": "",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": "%C5%9Etefan%20Alexandru-R%C4%83dulescu",
+        "dbFirst": "Ştefan Alexandru",
+        "dbLast": "Rădulescu",
+        "dbClub": "ACS Petrolul 52",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Nicolas Ivan",
         "club": "FCSB",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Tudor%20Nicolas-Ivan",
+        "dbFirst": "Tudor Nicolas",
+        "dbLast": "Ivan",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Nicolas Blaj",
         "club": "Udinese / Italia",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "David Loghin",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "David%20Bogdan-Loghin",
+        "dbFirst": "David Bogdan",
+        "dbLast": "Loghin",
+        "dbClub": "U Craiova 1948 CS SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Nicolas Anghel",
         "club": "CD Castellon / Spania",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Ianis%20Nicolas-Anghel",
+        "dbFirst": "Ianis Nicolas",
+        "dbLast": "Anghel",
+        "dbClub": "CSU Ştiinţa Bucureşti",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Darius Roșiu",
         "club": "Viitorul Cluj",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Darius%20Iulian-Ro%C8%99iu",
+        "dbFirst": "Darius Iulian",
+        "dbLast": "Roșiu",
+        "dbClub": "Academia de Fotbal Viitorul Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Massoussi Zaid",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Mario Anghel",
         "club": "FCSB",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Mario%20Gabriel-Anghel",
+        "dbFirst": "Mario Gabriel",
+        "dbLast": "Anghel",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Gabriel Lupu",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Matei Pădure",
         "club": "FCSB",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Matei-P%C4%83dure",
+        "dbFirst": "Matei",
+        "dbLast": "Pădure",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Alexandru Neamțu",
         "club": "FC Bacău",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Alexandru%20Antonio-Neam%C8%9Bu",
+        "dbFirst": "Alexandru Antonio",
+        "dbLast": "Neamțu",
+        "dbClub": "ACS FC Bacău",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Gorgan",
         "club": "Viitorul Cluj",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "David%20Antonio-Gorgan",
+        "dbFirst": "David Antonio",
+        "dbLast": "Gorgan",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Jimborean",
         "club": "Universitatea Cluj",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "David%20Ionu%C8%9B-Jimborean",
+        "dbFirst": "David Ionuț",
+        "dbLast": "Jimborean",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Rareș Manolache",
         "club": "ACS Petrolul 52",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Rare%C5%9F%20Cristian-Manolache",
+        "dbFirst": "Rareş Cristian",
+        "dbLast": "Manolache",
+        "dbClub": "ACS Petrolul 52",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Mihai Grosu",
         "club": "FC Rapid 1923",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Octavian%20Mihai-Grosu",
+        "dbFirst": "Octavian Mihai",
+        "dbLast": "Grosu",
+        "dbClub": "Aerostar Bacău",
+        "dbBirth": "2011-01-01T00:00:00"
       },
       {
         "name": "Vlad Petreanu",
         "club": "TSG Hoffenheim / Germania",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Vlad Berceanu",
         "club": "FC Rapid 1923",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Vlad%20Andrei-Berceanu",
+        "dbFirst": "Vlad Andrei",
+        "dbLast": "Berceanu",
+        "dbClub": "FC Rapid 1923",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Alexandru Iovan",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Alexandru%20Mihai-Iovan",
+        "dbFirst": "Alexandru Mihai",
+        "dbLast": "Iovan",
+        "dbClub": "U Craiova 1948 CS SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Lukas Pall",
         "club": "Viitorul Cluj",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "Lukas%20Agoston-Pall",
+        "dbFirst": "Lukas Agoston",
+        "dbLast": "Pall",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Avram",
         "club": "FCSB",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "David-Avram",
+        "dbFirst": "David",
+        "dbLast": "Avram",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Oltean",
         "club": "Olympique de Marseille / Franța",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       }
     ],
     "date": "2025-05-19",
@@ -149,127 +235,216 @@
         "name": "Gabriel Broștic",
         "club": "Juventus Torino",
         "country": "Italia",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": null
       },
       {
         "name": "Ștefan Rădulescu",
         "club": "ACS Petrolul 52",
         "country": "",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": "%C5%9Etefan%20Alexandru-R%C4%83dulescu",
+        "dbFirst": "Ştefan Alexandru",
+        "dbLast": "Rădulescu",
+        "dbClub": "ACS Petrolul 52",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Nicolas Ivan",
         "club": "FCSB",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Tudor%20Nicolas-Ivan",
+        "dbFirst": "Tudor Nicolas",
+        "dbLast": "Ivan",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Mario Anghel",
         "club": "FCSB",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Mario%20Gabriel-Anghel",
+        "dbFirst": "Mario Gabriel",
+        "dbLast": "Anghel",
+        "dbClub": "FC FCSB SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Damian Drăghici",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Damian-Dr%C4%83ghici",
+        "dbFirst": "Damian",
+        "dbLast": "Drăghici",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Patrick Budescu",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Patrick-Budescu",
+        "dbFirst": "Patrick",
+        "dbLast": "Budescu",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Darius Roșiu",
         "club": "Viitorul Cluj",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Darius%20Iulian-Ro%C8%99iu",
+        "dbFirst": "Darius Iulian",
+        "dbLast": "Roșiu",
+        "dbClub": "Academia de Fotbal Viitorul Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Alexandru Drochioi",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "George%20Alexandru-Drochioi",
+        "dbFirst": "George Alexandru",
+        "dbLast": "Drochioi",
+        "dbClub": "U Craiova 1948 CS SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Gabriel Gladun",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Gabriel-Gladun",
+        "dbFirst": "Gabriel",
+        "dbLast": "Gladun",
+        "dbClub": "CSC Dumbrăviţa",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Albert Avram",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Albert%20Constantin-Avram",
+        "dbFirst": "Albert Constantin",
+        "dbLast": "Avram",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Gorgan",
         "club": "Universitatea Cluj",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "David%20Antonio-Gorgan",
+        "dbFirst": "David Antonio",
+        "dbLast": "Gorgan",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "David Jimborean",
         "club": "Universitatea Cluj",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "David%20Ionu%C8%9B-Jimborean",
+        "dbFirst": "David Ionuț",
+        "dbLast": "Jimborean",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Alexandru Neamțu",
         "club": "FC Bacău",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Alexandru%20Antonio-Neam%C8%9Bu",
+        "dbFirst": "Alexandru Antonio",
+        "dbLast": "Neamțu",
+        "dbClub": "ACS FC Bacău",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Matei Bărbat",
         "club": "Cercle Brugge",
         "country": "Belgia",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Vlad Berceanu",
         "club": "FC Rapid 1923",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Vlad%20Andrei-Berceanu",
+        "dbFirst": "Vlad Andrei",
+        "dbLast": "Berceanu",
+        "dbClub": "FC Rapid 1923",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Mihai Grosu",
         "club": "FC Rapid 1923",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Octavian%20Mihai-Grosu",
+        "dbFirst": "Octavian Mihai",
+        "dbLast": "Grosu",
+        "dbClub": "Aerostar Bacău",
+        "dbBirth": "2011-01-01T00:00:00"
       },
       {
         "name": "Alexandru Iovan",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Alexandru%20Mihai-Iovan",
+        "dbFirst": "Alexandru Mihai",
+        "dbLast": "Iovan",
+        "dbClub": "U Craiova 1948 CS SA",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Ștefan Nastac",
         "club": "FC Bacău",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       },
       {
         "name": "Ionuț Cîra",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "Sorin%20Ionu%C8%9B-C%C3%AEra",
+        "dbFirst": "Sorin Ionuț",
+        "dbLast": "Cîra",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Lukas Pall",
         "club": "Viitorul Cluj",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "Lukas%20Agoston-Pall",
+        "dbFirst": "Lukas Agoston",
+        "dbLast": "Pall",
+        "dbClub": "AS FC Universitatea Cluj",
+        "dbBirth": "2010-01-01T00:00:00"
       },
       {
         "name": "Zsolt Janosi",
         "club": "AFK Csikszereda",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       }
     ],
     "date": "2025-10-03",
@@ -284,115 +459,158 @@
         "name": "Yanis CROITOR",
         "club": "RWDM Brussels",
         "country": "Belgia",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": null
       },
       {
         "name": "Victor KROES",
         "club": "Real Betis",
         "country": "Spania",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": null
       },
       {
         "name": "Cosmin MATEI",
         "club": "CFR Cluj",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Cosmin-Matei",
+        "dbFirst": "Cosmin",
+        "dbLast": "Matei",
+        "dbClub": "CFR Cluj",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Dragoș KIRALI",
         "club": "Hellas Verona",
         "country": "Italia",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Daniele PAUL",
         "club": "AS Roma",
         "country": "Italia",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Ayan ANGHEL",
         "club": "CS Dinamo București",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Ayan%20Mario-Anghel",
+        "dbFirst": "Ayan Mario",
+        "dbLast": "Anghel",
+        "dbClub": "CS Dinamo Bucureşti",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Eduardo CORLAT",
         "club": "Real Madrid",
         "country": "Spania",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Claudiu STANCU",
         "club": "CSM Slatina",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Lorand BENCZE",
         "club": "AFK Csikszereda",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Denis AEVOAEI",
         "club": "AS Cittadella",
         "country": "Italia",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Ioan PRECUP",
         "club": "CD Roda",
         "country": "Spania",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Andrei NICULCEA",
         "club": "FC Rapid 1923",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Andrei%20Daniel-Niculcea",
+        "dbFirst": "Andrei Daniel",
+        "dbLast": "Niculcea",
+        "dbClub": "FC Rapid 1923",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Ryan RUSU",
         "club": "AC Milan",
         "country": "Italia",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Darius TRIPON",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Darius%20Gabriel-Tripon",
+        "dbFirst": "Darius Gabriel",
+        "dbLast": "Tripon",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Apor MATHE",
         "club": "AFK Csikszereda",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Răzvan MARINCEAN",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "R%C4%83zvan%20Paul-Marincean",
+        "dbFirst": "Răzvan Paul",
+        "dbLast": "Marincean",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Alessandro CHIRA",
         "club": "Spezia Calcio",
         "country": "Italia",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       },
       {
         "name": "Rareș SILITRA",
         "club": "Borussia Mönchengladbach",
         "country": "Germania",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       },
       {
         "name": "Darius BOTA",
         "club": "AFK Csikszereda",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "Darius%20Cristian-Bota",
+        "dbFirst": "Darius Cristian",
+        "dbLast": "Bota",
+        "dbClub": "FK Csikszereda",
+        "dbBirth": "2009-01-01T00:00:00"
       }
     ],
     "date": "2026-06-05",
@@ -407,133 +625,195 @@
         "name": "Răzvan Farcaș",
         "club": "CD Leganes / Spania",
         "country": "",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": "R%C4%83zvan%20Mihai-Farca%C8%99",
+        "dbFirst": "Răzvan Mihai",
+        "dbLast": "Farcaș",
+        "dbClub": "Unirea Dej",
+        "dbBirth": "2009-01-01T00:00:00"
       },
       {
         "name": "Arsenie Mocan",
         "club": "FC Bihor",
         "country": "",
-        "position": "Portar"
+        "position": "Portar",
+        "slug": null
       },
       {
         "name": "Costyn Gheorghe",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Mario Bordea",
         "club": "FC Bacău",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Mario%20Andreas-Bordea",
+        "dbFirst": "Mario Andreas",
+        "dbLast": "Bordea",
+        "dbClub": "ACS FC Bacău",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Fabio Bădărău",
         "club": "Juventus / Italia",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Vlad Dragomir",
         "club": "FCSB",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Vlad%20Dimitrie-Dragomir",
+        "dbFirst": "Vlad Dimitrie",
+        "dbLast": "Dragomir",
+        "dbClub": "LPS Slatina",
+        "dbBirth": "2014-01-01T00:00:00"
       },
       {
         "name": "Christian Vechiu",
         "club": "AC Milan / Italia",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Roberto Gîrgel",
         "club": "Universitatea Craiova",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": "Roberto%20Gabriel-G%C3%AErgel",
+        "dbFirst": "Roberto Gabriel",
+        "dbLast": "Gîrgel",
+        "dbClub": "U Craiova 1948 CS SA",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Stefano Precupanu",
         "club": "FC Südtirol / Italia",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Raul Vancea",
         "club": "Watford FC / Anglia",
         "country": "",
-        "position": "Fundaș"
+        "position": "Fundaș",
+        "slug": null
       },
       {
         "name": "Daniele Luncașu",
         "club": "FC Bacău",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Daniele%20Vasile%20Valentin-Lunca%C5%9Fu",
+        "dbFirst": "Daniele Vasile Valentin",
+        "dbLast": "Luncaşu",
+        "dbClub": "ACS FC Bacău",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Hunor Batzula",
         "club": "Sepsi OSK",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Hunor%20Szabolcs-Batzula",
+        "dbFirst": "Hunor Szabolcs",
+        "dbLast": "Batzula",
+        "dbClub": "Sepsi OSK",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Rareș Coman",
         "club": "US Sassuolo / Italia",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Bogdan Petre",
         "club": "Chindia Târgoviște",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Ianis Podoleanu",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Ianis%20Andrei-Podoleanu",
+        "dbFirst": "Ianis Andrei",
+        "dbLast": "Podoleanu",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Robert Drăghici",
         "club": "FC Augsburg / Germania",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": null
       },
       {
         "name": "Denis Țăroi",
         "club": "UTA Arad",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Denis%20Alberto%20Ionu%C5%A3-%C5%A2%C4%83roi",
+        "dbFirst": "Denis Alberto Ionuţ",
+        "dbLast": "Ţăroi",
+        "dbClub": "AFC UTA Arad",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Matei Berchez",
         "club": "Farul Constanța",
         "country": "",
-        "position": "Mijlocaș"
+        "position": "Mijlocaș",
+        "slug": "Matei%20Andrei-Berchez",
+        "dbFirst": "Matei Andrei",
+        "dbLast": "Berchez",
+        "dbClub": "FCV Farul Constanţa",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Alexandru Bota",
         "club": "Universitatea Cluj",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": "Alexandru%20Cristian-Bota",
+        "dbFirst": "Alexandru Cristian",
+        "dbLast": "Bota",
+        "dbClub": "ACSF Oradea",
+        "dbBirth": "2008-01-01T00:00:00"
       },
       {
         "name": "Sebastian Burlacu",
         "club": "Como 1907 / Italia",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       },
       {
         "name": "Jose Rostas",
         "club": "Kapfenberger SV / Austria",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       },
       {
         "name": "Ianis Avrămescu",
         "club": "Parma Calcio 1913 / Italia",
         "country": "",
-        "position": "Atacant"
+        "position": "Atacant",
+        "slug": null
       }
     ],
     "date": "2025-10-14",
