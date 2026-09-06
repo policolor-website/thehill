@@ -60,6 +60,7 @@ export default function ClubPage() {
   const [loading, setLoading] = useState(true);
   const [posFilter, setPosFilter] = useState("");
   const [compFilter, setCompFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
 
   useEffect(() => {
     Promise.all([
@@ -92,14 +93,16 @@ export default function ClubPage() {
   }, [clubPlayers]);
 
   const filteredPlayers = useMemo(() => {
+    const q = nameFilter.trim().toLowerCase();
     return clubPlayers
       .filter((p) => {
         if (posFilter && p.p !== posFilter) return false;
         if (compFilter && p.co !== compFilter) return false;
+        if (q && !`${p.f} ${p.l}`.toLowerCase().includes(q)) return false;
         return true;
       })
       .sort((a, b) => getAge(a.b) - getAge(b.b));
-  }, [clubPlayers, posFilter, compFilter]);
+  }, [clubPlayers, posFilter, compFilter, nameFilter]);
 
   const clubMatches = useMemo(() => {
     return matches.filter(
@@ -181,40 +184,45 @@ export default function ClubPage() {
           </div>
 
           {/* Filtre */}
-          {(positions.length > 1 || competitions.length > 1) && (
-            <div className="card-navy p-4 mb-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {positions.length > 1 && (
-                  <select
-                    value={posFilter}
-                    onChange={(e) => setPosFilter(e.target.value)}
-                    className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
-                  >
-                    <option value="">Toate pozițiile</option>
-                    {positions.map((p) => (
-                      <option key={p} value={p}>
-                        {p}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {competitions.length > 1 && (
-                  <select
-                    value={compFilter}
-                    onChange={(e) => setCompFilter(e.target.value)}
-                    className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
-                  >
-                    <option value="">Toate competițiile</option>
-                    {competitions.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
+          <div className="card-navy p-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input
+                type="text"
+                value={nameFilter}
+                onChange={(e) => setNameFilter(e.target.value)}
+                placeholder="Caută după nume..."
+                className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none placeholder:text-muted"
+              />
+              {positions.length > 1 && (
+                <select
+                  value={posFilter}
+                  onChange={(e) => setPosFilter(e.target.value)}
+                  className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
+                >
+                  <option value="">Toate pozițiile</option>
+                  {positions.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
+              )}
+              {competitions.length > 1 && (
+                <select
+                  value={compFilter}
+                  onChange={(e) => setCompFilter(e.target.value)}
+                  className="px-4 py-2.5 bg-navy border border-white/10 rounded-lg text-foreground text-sm focus:border-violet focus:outline-none"
+                >
+                  <option value="">Toate competițiile</option>
+                  {competitions.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
-          )}
+          </div>
 
           {/* Lista jucători */}
           {filteredPlayers.length === 0 ? (
