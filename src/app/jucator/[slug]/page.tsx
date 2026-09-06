@@ -254,12 +254,12 @@ export default function JucatorPage() {
                     {/* Top row (mobile) / left group (desktop): badge + date + role */}
                     <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
                       {/* Result badge */}
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 ${
-                        result === "W" ? "bg-green/10 text-green" :
-                        result === "L" ? "bg-red/10 text-red" :
-                        result === "D" ? "bg-amber/10 text-amber" : "bg-navy-light text-muted"
+                      <div className={`px-3 py-1.5 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                        result === "W" ? "bg-green/15 text-green border border-green/20" :
+                        result === "L" ? "bg-red/15 text-red border border-red/20" :
+                        result === "D" ? "bg-amber/15 text-amber border border-amber/20" : "bg-navy-light text-muted"
                       }`}>
-                        {result || "—"}
+                        {result === "W" ? "Câștigat" : result === "L" ? "Pierdut" : result === "D" ? "Egal" : "—"}
                       </div>
 
                       {/* Date */}
