@@ -4,19 +4,18 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 
 type Club = {
-  clubId: string;
-  name: string;
-  abbreviation: string;
-  lat: number;
-  lon: number;
-  address: { county: string; city: string };
-  logoPath: string;
+  id: string;
+  n: string;
+  a: string;
+  la: number;
+  lo: number;
+  co: string;
+  ci: string;
 };
 
 type Player = {
-  clubId: string;
-  clubName: string;
-  competition: string;
+  ci: string;
+  c: string;
 };
 
 export default function CluburiPage() {
@@ -28,18 +27,11 @@ export default function CluburiPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/data/clubs.json?v=2").then((r) => r.json()),
-      fetch("/data/players.json?v=2").then((r) => r.json()),
+      fetch("/data/clubs_slim.json").then((r) => r.json()),
+      fetch("/data/players_list.json").then((r) => r.json()),
     ]).then(([c, p]) => {
-      // Filtrează doar juniori
-      const juniorKeywords = /U\d|Juniori|Junioare|Liga Elitelor|Campionatul Național|Liga de Tineret|Interliga/i;
-      const juniors = p.filter((pl: Player) => juniorKeywords.test(pl.competition));
-
-      // Doar cluburi cu jucători juniori
-      const clubIdsWithPlayers = new Set(juniors.map((pl: Player) => pl.clubId));
-      const filtered = c.filter((club: Club) => clubIdsWithPlayers.has(club.clubId));
-      setClubs(filtered);
-      setPlayers(juniors);
+      setClubs(c);
+      setPlayers(p);
       setLoading(false);
     });
   }, []);
@@ -48,20 +40,20 @@ export default function CluburiPage() {
   const playerCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     players.forEach((p) => {
-      counts[p.clubId] = (counts[p.clubId] || 0) + 1;
+      counts[p.ci] = (counts[p.ci] || 0) + 1;
     });
     return counts;
   }, [players]);
 
   const counties = useMemo(() => {
-    const set = new Set(clubs.map((c) => c.address?.county).filter(Boolean));
+    const set = new Set(clubs.map((c) => c.co).filter(Boolean));
     return [...set].sort();
   }, [clubs]);
 
   const filtered = useMemo(() => {
     return clubs.filter((c) => {
-      if (search && !c.name.toLowerCase().includes(search.toLowerCase())) return false;
-      if (countyFilter && c.address?.county !== countyFilter) return false;
+      if (search && !c.n.toLowerCase().includes(search.toLowerCase())) return false;
+      if (countyFilter && c.co !== countyFilter) return false;
       return true;
     });
   }, [clubs, search, countyFilter]);
@@ -103,18 +95,18 @@ export default function CluburiPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((c) => (
-              <div key={c.clubId} className="card-navy p-5 transition-all hover:border-violet/25">
+              <div key={c.id} className="card-navy p-5 transition-all hover:border-violet/25">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="font-display text-lg font-semibold text-foreground">
-                      {c.abbreviation || c.name}
+                      {c.a || c.n}
                     </h3>
                     <p className="text-xs text-muted mt-1">
-                      {c.address?.county}, {c.address?.city}
+                      {c.co}, {c.ci}
                     </p>
                   </div>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold bg-violet/10 text-violet">
-                    {playerCounts[c.clubId] || 0} jucători
+                    {playerCounts[c.id] || 0} jucători
                   </span>
                 </div>
               </div>

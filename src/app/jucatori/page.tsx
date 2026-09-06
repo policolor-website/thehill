@@ -4,19 +4,15 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 
 type Player = {
-  clubId: string;
-  clubName: string;
-  lat: number;
-  lon: number;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  shirtNumber: string;
-  position: string;
-  positions: string[];
-  competition: string;
-  ageGroupMaxAge: number;
-  photoPath: string;
+  f: string; // firstName
+  l: string; // lastName
+  c: string; // clubName
+  ci: string; // clubId
+  b: string; // birthDate
+  s: string; // shirtNumber
+  p: string; // position (primary)
+  ps: string[]; // positions (all)
+  co: string; // competition
 };
 
 const POSITIONS = [
@@ -45,7 +41,7 @@ export default function JucatoriPage() {
   const PER_PAGE = 24;
 
   useEffect(() => {
-    fetch("/data/players_enriched.json?v=3")
+    fetch("/data/players_list.json")
       .then((r) => r.json())
       .then((data) => {
         setPlayers(data);
@@ -56,7 +52,7 @@ export default function JucatoriPage() {
 
   // Extrage cluburi unice pentru dropdown
   const clubs = useMemo(() => {
-    const set = new Set(players.map((p) => p.clubName));
+    const set = new Set(players.map((p) => p.c));
     return [...set].sort();
   }, [players]);
 
@@ -71,13 +67,13 @@ export default function JucatoriPage() {
   const filtered = useMemo(() => {
     return players.filter((p) => {
       if (search) {
-        const name = (p.firstName + " " + p.lastName).toLowerCase();
+        const name = (p.f + " " + p.l).toLowerCase();
         if (!name.includes(search.toLowerCase())) return false;
       }
-      if (positionFilter && !p.positions?.includes(positionFilter)) return false;
-      if (clubFilter && p.clubName !== clubFilter) return false;
+      if (positionFilter && !p.ps?.includes(positionFilter)) return false;
+      if (clubFilter && p.c !== clubFilter) return false;
       if (ageFilter) {
-        const age = getAge(p.birthDate);
+        const age = getAge(p.b);
         if (ageFilter === "u13" && age > 13) return false;
         if (ageFilter === "u15" && (age > 15 || age < 14)) return false;
         if (ageFilter === "u17" && (age > 17 || age < 16)) return false;
@@ -151,35 +147,35 @@ export default function JucatoriPage() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {paged.map((p, i) => {
-                const age = getAge(p.birthDate);
+                const age = getAge(p.b);
                 return (
                   <Link
                     key={i}
-                    href={`/jucator/${encodeURIComponent((p.firstName + "-" + p.lastName).trim())}`}
+                    href={`/jucator/${encodeURIComponent((p.f + "-" + p.l).trim())}`}
                     className="card-navy p-4 transition-all duration-300 hover:-translate-y-1 hover:border-violet/25 no-underline"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-navy-light border border-white/10 flex items-center justify-center text-violet font-display font-bold text-lg flex-shrink-0">
-                        {p.firstName.charAt(0)}
+                        {p.f.charAt(0)}
                       </div>
                       <div className="min-w-0">
                         <div className="text-sm font-semibold text-foreground truncate">
-                          {p.firstName} {p.lastName}
+                          {p.f} {p.l}
                         </div>
                         <div className="text-xs text-muted truncate">
-                          {p.clubName}
+                          {p.c}
                         </div>
                       </div>
                     </div>
                     <div className="flex gap-2 mt-3 flex-wrap">
                       <span className="px-2 py-0.5 rounded text-xs bg-violet/10 text-violet">
-                        {p.positions?.[0] || p.position}
+                        {p.ps?.[0] || p.p}
                       </span>
                       <span className="px-2 py-0.5 rounded text-xs bg-green/10 text-green">
                         {age} ani
                       </span>
                       <span className="px-2 py-0.5 rounded text-xs bg-amber/10 text-amber">
-                        #{p.shirtNumber}
+                        #{p.s}
                       </span>
                     </div>
                   </Link>

@@ -40,5 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# data files (too large for git, stored locally)
-/public/data/*.json
+# data files — raw (too large for git)
+/public/data/players.json
+/public/data/players_enriched.json
+/public/data/clubs.json
+/public/data/match_sheets.json
+/public/data/match_sheets_slim.json
+/public/data/player_matches.json
+/public/data/transfers.json
+
+# data files — slim versions (pushed to git)
+# players_list.json, player_stats.json, clubs_slim.json, matches.json
