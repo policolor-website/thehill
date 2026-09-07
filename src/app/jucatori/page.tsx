@@ -90,7 +90,8 @@ export default function JucatoriPage() {
     return players.filter((p) => {
       if (search) {
         const name = (p.f + " " + p.l).toLowerCase();
-        if (!name.includes(search.toLowerCase())) return false;
+        const terms = search.toLowerCase().trim().split(/\s+/);
+        if (!terms.every((t) => name.includes(t))) return false;
       }
       if (positionFilter && !p.ps?.includes(positionFilter)) return false;
       if (clubFilter && p.c !== clubFilter) return false;
